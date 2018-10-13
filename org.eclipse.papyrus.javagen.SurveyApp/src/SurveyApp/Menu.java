@@ -28,6 +28,7 @@ public abstract class Menu {
 
 	public Menu(ArrayList<MenuChoice> choices) {
 		this.choices = choices;
+		this.numberChoices = choices.size();
 	}
 	
 	/**
@@ -63,6 +64,7 @@ public abstract class Menu {
 	 */
 	public void setChoices(ArrayList<MenuChoice> choices) {
 		this.choices = choices;
+		this.numberChoices = choices.size();
 	}
 
 	/**
@@ -70,7 +72,6 @@ public abstract class Menu {
 	 * @return 
 	 */
 	public int getNumberChoices() {
-		this.numberChoices = this.choices.size();
 		return this.numberChoices;
 	}
 };

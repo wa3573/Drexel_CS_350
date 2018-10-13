@@ -27,23 +27,15 @@
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
     </ownedAttribute>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_U7V-4MkgEeiIl_tzUsAX1w" name="output" visibility="private" type="_mGQUAMnWEeisb8Dalh-igw"/>
-    <ownedOperation xmi:type="uml:Operation" xmi:id="_p4CioMkdEeiIl_tzUsAX1w" name="Survey">
-      <ownedParameter xmi:type="uml:Parameter" xmi:id="_GXPuMMkeEeiIl_tzUsAX1w" name="author">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedParameter>
-      <ownedParameter xmi:type="uml:Parameter" xmi:id="_p-odYMkeEeiIl_tzUsAX1w" name="title">
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </ownedParameter>
-      <ownedParameter xmi:type="uml:Parameter" xmi:id="_lySjUMkfEeiIl_tzUsAX1w" name="questions" type="_wToc0MpsEeikC5DmfRRkSw"/>
-    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_p4CioMkdEeiIl_tzUsAX1w" name="Survey"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_rTRfoMkfEeiIl_tzUsAX1w" name="addQuestion">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_jd_usMqOEeikC5DmfRRkSw" type="_9NzTYMpPEeikC5DmfRRkSw" direction="return"/>
     </ownedOperation>
-    <ownedOperation xmi:type="uml:Operation" xmi:id="_s7UbgMkfEeiIl_tzUsAX1w" name="editQuestion">
-      <ownedParameter xmi:type="uml:Parameter" xmi:id="_md8RoMqOEeikC5DmfRRkSw" type="_9NzTYMpPEeikC5DmfRRkSw" direction="return"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_s7UbgMkfEeiIl_tzUsAX1w" name="replaceQuestion">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_wDvuQMqOEeikC5DmfRRkSw" name="index">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
       </ownedParameter>
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_md8RoMqOEeikC5DmfRRkSw" name="question" type="_RoACwMm4Eeisb8Dalh-igw"/>
     </ownedOperation>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_1qqKMMkfEeiIl_tzUsAX1w" name="removeQuestion">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_0WShgMqOEeikC5DmfRRkSw" name="index">
@@ -66,6 +58,26 @@
     </ownedOperation>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_Dm-UEMkgEeiIl_tzUsAX1w" name="tabulate">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_AmXMAMqPEeikC5DmfRRkSw" type="_9NzTYMpPEeikC5DmfRRkSw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_IWGgsM82EeiJ_M_ElFQcWg" name="setAuthor">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_dG_VsM82EeiJ_M_ElFQcWg" name="author">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_JZ0AcM82EeiJ_M_ElFQcWg" name="getAuthor">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_fAOvQM82EeiJ_M_ElFQcWg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_KRMUYM82EeiJ_M_ElFQcWg" name="setTitle">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_g1x7oM82EeiJ_M_ElFQcWg" name="title">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_KvjEUM82EeiJ_M_ElFQcWg" name="getTitle">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_kFmGkM82EeiJ_M_ElFQcWg" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
     </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_POtWwMkhEeiIl_tzUsAX1w" name="Test">
@@ -475,26 +487,33 @@
     <ownedAttribute xmi:type="uml:Property" xmi:id="_8ghMEMy_Eei1P-1T3frZ9Q" name="filePath" visibility="private">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
     </ownedAttribute>
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_8gpu8My_Eei1P-1T3frZ9Q" name="author" visibility="private">
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-    </ownedAttribute>
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_8gsLMMy_Eei1P-1T3frZ9Q" name="title" visibility="private">
-      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_MJFIQM8kEeiJ_M_ElFQcWg" name="isGradable" visibility="private">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
     </ownedAttribute>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_40e0EMneEeisb8Dalh-igw" name="MenuCreate"/>
-    <ownedOperation xmi:type="uml:Operation" xmi:id="_5Oz_oMneEeisb8Dalh-igw" name="save">
-      <ownedParameter xmi:type="uml:Parameter" xmi:id="_0quuMMqTEeikC5DmfRRkSw" type="_9NzTYMpPEeikC5DmfRRkSw" direction="return"/>
-    </ownedOperation>
-    <ownedOperation xmi:type="uml:Operation" xmi:id="_5Y6W0MneEeisb8Dalh-igw" name="quit">
-      <ownedParameter xmi:type="uml:Parameter" xmi:id="_2g2iUMqTEeikC5DmfRRkSw" type="_9NzTYMpPEeikC5DmfRRkSw" direction="return"/>
-    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_5Oz_oMneEeisb8Dalh-igw" name="save"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_5Y6W0MneEeisb8Dalh-igw" name="quit"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_8vuOEM8iEeiJ_M_ElFQcWg" name="Operation8"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_IGiMYMngEeisb8Dalh-igw" name="MenuAddQuestion">
     <generalization xmi:type="uml:Generalization" xmi:id="_TmiPYMnhEeisb8Dalh-igw" general="_CgBzsMncEeisb8Dalh-igw"/>
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_J3VboMngEeisb8Dalh-igw" name="question" visibility="private">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_J3VboMngEeisb8Dalh-igw" name="prompt" visibility="private">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
     </ownedAttribute>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_QH2V0M8iEeiJ_M_ElFQcWg" name="question" visibility="private" type="_RoACwMm4Eeisb8Dalh-igw"/>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_KWBtUMnhEeisb8Dalh-igw" name="MenuAddQuestion"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Ve5TAM8iEeiJ_M_ElFQcWg" name="setQuestion">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_cLJIkM8iEeiJ_M_ElFQcWg" name="question" type="_RoACwMm4Eeisb8Dalh-igw"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_WN_NoM8iEeiJ_M_ElFQcWg" name="getQuestion">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_jJZUIM8iEeiJ_M_ElFQcWg" type="_RoACwMm4Eeisb8Dalh-igw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_oIlyAM8iEeiJ_M_ElFQcWg" name="setPrompt">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_tbhEMM8iEeiJ_M_ElFQcWg" name="prompt" type="_mTELgMnXEeisb8Dalh-igw"/>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_o6oS8M8iEeiJ_M_ElFQcWg" name="getPrompt">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_xqAd4M8iEeiJ_M_ElFQcWg" type="_mTELgMnXEeisb8Dalh-igw" direction="return"/>
+    </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_tiDLoMngEeisb8Dalh-igw" name="MenuFill">
     <generalization xmi:type="uml:Generalization" xmi:id="_VSD9EMnhEeisb8Dalh-igw" general="_CgBzsMncEeisb8Dalh-igw"/>
@@ -712,7 +731,7 @@
   </packagedElement>
   <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_KFKy0MvOEeiIfMiqDDr_jg" name="ArrayList&lt;Boolean>"/>
   <packagedElement xmi:type="uml:Class" xmi:id="_97VwQMw7EeiCKvSCdctbmQ" name="MenuEdit">
-    <generalization xmi:type="uml:Generalization" xmi:id="_P0m34Mw8EeiCKvSCdctbmQ" general="_CgBzsMncEeisb8Dalh-igw"/>
+    <generalization xmi:type="uml:Generalization" xmi:id="_28ySMM86EeiJ_M_ElFQcWg" general="_jidn8MneEeisb8Dalh-igw"/>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_BEZL4Mw8EeiCKvSCdctbmQ" name="filePath" visibility="private">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
     </ownedAttribute>
@@ -722,11 +741,14 @@
     <ownedAttribute xmi:type="uml:Property" xmi:id="_BEeEYMw8EeiCKvSCdctbmQ" name="title" visibility="private">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
     </ownedAttribute>
-    <ownedOperation xmi:type="uml:Operation" xmi:id="_FTRnIMw8EeiCKvSCdctbmQ" name="load">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_FTRnIMw8EeiCKvSCdctbmQ" name="open">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_FTRnIcw8EeiCKvSCdctbmQ" name="filePath">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       </ownedParameter>
     </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_CAEj0M8XEeiJ_M_ElFQcWg" name="MenuAddQuestionTest">
+    <generalization xmi:type="uml:Generalization" xmi:id="_DqdLkM8jEeiJ_M_ElFQcWg" general="_IGiMYMngEeisb8Dalh-igw"/>
   </packagedElement>
   <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_yyVIkMnXEeisb8Dalh-igw">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_yyWWsMnXEeisb8Dalh-igw" source="http://www.eclipse.org/uml2/2.0.0/UML">

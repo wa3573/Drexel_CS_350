@@ -13,19 +13,13 @@ import SurveyApp.MenuChoice;
  * 
  */
 public class MenuHome extends Menu {
-	/**
-	 * 
-	 */
-	private int numberChoices;
 
-	/**
-	 * 
-	 */
 	public MenuHome() {
 		MenuChoice choice1 = new MenuChoice("Create", 1);
 		MenuChoice choice2 = new MenuChoice("Edit", 2);
-		MenuChoice choice3 = new MenuChoice("Grade", 3);
-		MenuChoice choice4 = new MenuChoice("Exit", 4);
+		MenuChoice choice3 = new MenuChoice("Fill", 3);
+		MenuChoice choice4 = new MenuChoice("Grade", 4);
+		MenuChoice choice5 = new MenuChoice("Exit", 5);
 		
 		ArrayList<MenuChoice> choices = new ArrayList<MenuChoice>();
 		
@@ -33,9 +27,9 @@ public class MenuHome extends Menu {
 		choices.add(choice2);
 		choices.add(choice3);
 		choices.add(choice4);
+		choices.add(choice5);
 		
 		this.setChoices(choices);
-		this.numberChoices = this.getNumberChoices();
 	}
 	
 	/*
@@ -54,15 +48,19 @@ public class MenuHome extends Menu {
 			/* Edit */
 			newMenu = new MenuEdit();
 		case 3:
+			/* Fill */
+			newMenu = new MenuFill();
+		case 4:
 			/* Grade */
 			newMenu = new MenuGrade();
-		case 4:
+		case 5:
 			/* Exit */
 			newMenu = null;
 			System.exit(0);
 			
 		default:
 			newMenu = null;
+			System.err.println("selectChoice(): invalid index");
 		}
 		
 		return newMenu;

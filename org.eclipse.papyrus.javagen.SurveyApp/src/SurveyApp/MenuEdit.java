@@ -4,30 +4,45 @@
 
 package SurveyApp;
 
-import SurveyApp.Menu;
+import java.util.ArrayList;
+
+import SurveyApp.MenuCreate;
 
 /************************************************************/
 /**
  * 
  */
-public class MenuEdit extends Menu {
-	/**
-	 * 
-	 */
-	private String filePath;
-	/**
-	 * 
-	 */
-	private String author;
-	/**
-	 * 
-	 */
-	private String title;
+public class MenuEdit extends MenuCreate {
 
+	public MenuEdit() {
+		MenuChoice choice1 = new MenuChoice("Open", 1);
+		MenuChoice choice2 = new MenuChoice("Set survey/test", 2);
+		MenuChoice choice3 = new MenuChoice("Set author", 3);
+		MenuChoice choice4 = new MenuChoice("Set title", 4);
+		MenuChoice choice5 = new MenuChoice("Add question", 5);
+		MenuChoice choice6 = new MenuChoice("Save", 6);
+		MenuChoice choice7 = new MenuChoice("Return", 7);
+		
+		ArrayList<MenuChoice> choices = new ArrayList<MenuChoice>();
+		
+		choices.add(choice1);
+		choices.add(choice2);
+		choices.add(choice3);
+		choices.add(choice4);
+		choices.add(choice5);
+		choices.add(choice6);
+		choices.add(choice7);
+		
+		this.setChoices(choices);
+		
+		Survey survey = new Survey();
+		this.setSurvey(survey);
+		this.setIsSaved(true);
+	}
 	/**
 	 * 
 	 * @param filePath 
 	 */
-	public void load(String filePath) {
+	public void open(String filePath) {
 	}
 };

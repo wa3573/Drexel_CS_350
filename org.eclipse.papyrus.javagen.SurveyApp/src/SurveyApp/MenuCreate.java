@@ -4,43 +4,269 @@
 
 package SurveyApp;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.regex.Pattern;
+import java.io.*;
+
 import SurveyApp.Menu;
+import SurveyApp.Survey;
+import SurveyApp.Test;
 
 /************************************************************/
 /**
  * 
  */
 public class MenuCreate extends Menu {
-	/**
-	 * 
-	 */
+
 	private String filePath;
-	/**
-	 * 
-	 */
-	private String author;
-	/**
-	 * 
-	 */
-	private String title;
 
-	/**
-	 * 
-	 */
-	public void MenuCreate() {
+	private Survey survey;
+	private Boolean isGradable;
+	private Boolean isSaved;
+	
+	private Scanner reader = new Scanner(System.in);
+	private static final Pattern ALPHANUMERIC = Pattern.compile("[^a-zA-Z0-9]");
+	
+	public MenuCreate() {
+		MenuChoice choice1 = new MenuChoice("Set survey/test", 1);
+		MenuChoice choice2 = new MenuChoice("Set author", 2);
+		MenuChoice choice3 = new MenuChoice("Set title", 3);
+		MenuChoice choice4 = new MenuChoice("Add question", 4);
+		MenuChoice choice5 = new MenuChoice("Save", 5);
+		MenuChoice choice6 = new MenuChoice("Return", 6);
+		
+		ArrayList<MenuChoice> choices = new ArrayList<MenuChoice>();
+		
+		choices.add(choice1);
+		choices.add(choice2);
+		choices.add(choice3);
+		choices.add(choice4);
+		choices.add(choice5);
+		choices.add(choice6);
+		
+		this.setChoices(choices);
+		
+		this.survey = new Survey();
+		
+		this.isSaved = false;
+	}
+	
+	public void promptFilePath() {
+		String userResponse = "";
+		
+		System.out.print("Enter filename (without extension): ");
+		userResponse = reader.nextLine();
+		boolean isNotAlphanumeric = ALPHANUMERIC.matcher(userResponse).find();
+		
+		while (isNotAlphanumeric) {
+			System.out.print("Please enter only alphanumeric characters. "
+					+ "Enter filename (without extension): ");
+			userResponse = reader.nextLine();
+			isNotAlphanumeric = ALPHANUMERIC.matcher(userResponse).find();
+		}
+		
+		this.filePath = userResponse + ".survey";
+	}
+	
+	public boolean promptBoolean(String prompt) {
+		System.out.print(prompt + " ('y' or 'n'): ");
+		char userResponse = reader.nextLine().charAt(0);
+				
+		while (userResponse != 'y' && userResponse != 'n') {
+			System.out.print("Please enter a valid choice."
+					+ prompt + " ('y' or 'n'): ");
+			userResponse = reader.nextLine().charAt(0);
+		}
+		
+		if (userResponse == 'y') {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
-	/**
-	 * 
-	 * @return 
-	 */
 	public void save() {
+		if (this.filePath == null) {
+			this.promptFilePath();
+		} else {
+			String prompt = "Current path is '" + this.filePath
+					+ "', keep current path?";
+			
+			if (!this.promptBoolean(prompt)) {
+				this.promptFilePath();
+			}
+		}
+		
+		try {
+			FileOutputStream file = new FileOutputStream(this.filePath);
+			ObjectOutputStream out = new ObjectOutputStream(file);
+			
+			out.writeObject(this.survey);
+			
+			out.close();
+			file.close();
+			
+			System.out.println("File succesfully written as: " + this.filePath);
+			this.isSaved = true;
+			
+		} catch (IOException e) {
+			System.err.println("save(): IOException");
+		}
+		
+		
 	}
 
-	/**
-	 * 
-	 * @return 
-	 */
 	public void quit() {
+	}
+	
+	public Menu selectChoice(int index) {
+		Menu newMenu;
+		boolean isNotAlphanumeric;
+		
+		switch (index) {
+		case 1:
+			int userResponse1 = 0;
+			newMenu = this;
+			
+			System.out.print("Enter '1' for a survey, or '2' for a test: ");
+			userResponse1 = reader.nextInt();
+			
+			while (userResponse1 != 1 && userResponse1 != 2) {
+				System.out.print("Please enter a valid response. "
+						+ "Enter '1' for a survey, or '2' for a test: ");
+				userResponse1 = reader.nextInt();
+			}
+			
+			if (userResponse1 == 0) {
+				if (this.isGradable) {
+					String prompt1 = "Work item is currently a test, all "
+							+ "questions will be removed, continue?";
+					
+					if (!this.promptBoolean(prompt1)) {
+						break;
+					}
+					
+					this.survey = new Survey();
+					this.isSaved = false;
+				}
+				
+				this.isGradable = false;
+			} else {
+				if (!this.isGradable) {
+					String prompt1 = "Work item is currently a survey, all "
+							+ "questions will be removed, continue?";
+					
+					if (!this.promptBoolean(prompt1)) {
+						break;
+					}
+					
+					this.survey = new Test();
+					this.isSaved = false;
+				}
+				
+				this.isGradable = true;
+			}
+			
+			break;
+		case 2:
+			String userResponse2 = "";
+			
+			System.out.print("Enter author name: ");
+			userResponse2 = reader.nextLine();
+			isNotAlphanumeric = ALPHANUMERIC.matcher(userResponse2).find();
+			
+			while (isNotAlphanumeric) {
+				System.out.print("Please enter only alphanumeric characters. "
+						+ "Enter author name: ");
+				userResponse2 = reader.nextLine();
+				isNotAlphanumeric = ALPHANUMERIC.matcher(userResponse2).find();
+			}
+			
+			this.survey.setAuthor(userResponse2);
+			this.isSaved = false;
+			
+			newMenu = this;
+			break;
+		case 3:
+			String userResponse3 = "";
+			
+			System.out.print("Enter title: ");
+			userResponse3 = reader.nextLine();
+			isNotAlphanumeric = ALPHANUMERIC.matcher(userResponse3).find();
+			
+			while (isNotAlphanumeric) {
+				System.out.print("Please enter only alphanumeric characters. "
+						+ "Enter title: ");
+				userResponse3 = reader.nextLine();
+				isNotAlphanumeric = ALPHANUMERIC.matcher(userResponse3).find();
+			}
+			
+			this.survey.setTitle(userResponse3);
+			this.isSaved = false;
+			
+			newMenu = this;
+			break;
+		case 4:
+			if (isGradable) {
+				newMenu = new MenuAddQuestionTest();
+			} else {
+				newMenu = new MenuAddQuestion();
+			}
+			
+			break;
+		case 5:
+			newMenu = new MenuSave();
+			break;
+		case 6:
+			String prompt1 = "The current work item is not saved, would "
+					+ "you like to save it now?";
+			
+			if (!isSaved) {
+				
+				if (this.promptBoolean(prompt1)) {
+					this.save();
+				}
+			} 
+
+			newMenu = new MenuHome();
+			break;
+		default:
+			newMenu = null;
+		}
+		
+		return newMenu;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+	public Survey getSurvey() {
+		return survey;
+	}
+
+	public void setSurvey(Survey survey) {
+		this.survey = survey;
+	}
+
+	public Boolean getIsGradable() {
+		return isGradable;
+	}
+
+	public void setIsGradable(Boolean isGradable) {
+		this.isGradable = isGradable;
+	}
+
+	public Boolean getIsSaved() {
+		return isSaved;
+	}
+
+	public void setIsSaved(Boolean isSaved) {
+		this.isSaved = isSaved;
 	}
 };

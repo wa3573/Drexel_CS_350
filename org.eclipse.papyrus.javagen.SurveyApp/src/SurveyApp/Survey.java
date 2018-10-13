@@ -4,6 +4,8 @@
 
 package SurveyApp;
 
+import java.util.ArrayList;
+import java.io.*;
 import SurveyApp.Output;
 import SurveyApp.Question;
 import SurveyApp.Serializable;
@@ -12,10 +14,15 @@ import SurveyApp.Serializable;
 /**
  * 
  */
-public class Survey {
+public class Survey implements java.io.Serializable {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = -2996912927221626336L;
+	/**
+	 * 
+	 */
+
 	private String author;
 	/**
 	 * 
@@ -40,7 +47,7 @@ public class Survey {
 	 * @param title 
 	 * @param questions 
 	 */
-	public void Survey(String author, String title, ArrayList<Question> questions) {
+	public Survey() {
 	}
 
 	/**
@@ -55,7 +62,8 @@ public class Survey {
 	 * @return 
 	 * @param index 
 	 */
-	public void editQuestion(int index) {
+	public void replaceQuestion(int index, Question question) {
+		this.questions.set(index, question);
 	}
 
 	/**
@@ -64,6 +72,7 @@ public class Survey {
 	 * @return 
 	 */
 	public void removeQuestion(int index) {
+		this.questions.remove(index);
 	}
 
 	/**
@@ -72,6 +81,7 @@ public class Survey {
 	 * @param index 
 	 */
 	public Question getQuestion(int index) {
+		return this.questions.get(index);
 	}
 
 	/**
@@ -94,5 +104,21 @@ public class Survey {
 	 * @return 
 	 */
 	public void tabulate() {
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 };
