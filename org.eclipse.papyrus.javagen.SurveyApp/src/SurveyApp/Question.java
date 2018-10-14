@@ -4,6 +4,7 @@
 
 package SurveyApp;
 
+import java.util.*;
 import SurveyApp.CorrectResponse;
 import SurveyApp.Output;
 import SurveyApp.Prompt;
@@ -30,7 +31,7 @@ public abstract class Question {
 	/**
 	 * 
 	 */
-	public void Question() {
+	public Question() {
 	}
 
 	/**
@@ -46,6 +47,7 @@ public abstract class Question {
 	 * @return 
 	 */
 	public Prompt getPrompt() {
+		return this.prompt;
 	}
 
 	/**
@@ -53,6 +55,7 @@ public abstract class Question {
 	 * @return 
 	 */
 	public int getNumberResponsesUser() {
+		return this.numberResponses;
 	}
 
 	/**
@@ -62,6 +65,7 @@ public abstract class Question {
 	 * @param response 
 	 */
 	public void setResponseUser(int index, CorrectResponse response) {
+		this.responsesUser.set(index, response);
 	}
 
 	/**
@@ -70,6 +74,7 @@ public abstract class Question {
 	 * @param index 
 	 */
 	public CorrectResponse getResponseUser(int index) {
+		return this.responsesUser.get(index);
 	}
 
 	/**
@@ -78,6 +83,7 @@ public abstract class Question {
 	 * @param responses 
 	 */
 	public void setResponsesUser(ArrayList<CorrectResponse> responses) {
+		this.responsesUser = responses;
 	}
 
 	/**
@@ -85,6 +91,7 @@ public abstract class Question {
 	 * @return 
 	 */
 	public ArrayList<CorrectResponse> getResponsesUser() {
+		return this.responsesUser;
 	}
 
 	/**
@@ -93,5 +100,6 @@ public abstract class Question {
 	 * @param output 
 	 */
 	public void display(Output output) {
+		output.displayString(this.prompt.toString());
 	}
 };

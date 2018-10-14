@@ -11,12 +11,15 @@ import SurveyApp.Output;
  * 
  */
 public class OutputTerminal extends Output {
+	private static OutputTerminal instance = null;
+	
 	/**
 	 * 
 	 * @param output 
 	 * @return 
 	 */
-	public void display(int output) {
+	public void displayInteger(int output) {
+		System.out.print(output);
 	}
 
 	/**
@@ -24,12 +27,22 @@ public class OutputTerminal extends Output {
 	 * @param output 
 	 * @return 
 	 */
-	public void display(String output) {
+	public void displayString(String output) {
+		System.out.print(output);
 	}
 
 	/**
 	 * 
 	 */
-	public void OutputTerminal() {
+	private OutputTerminal() {
+	}
+	
+	public static OutputTerminal getInstance()
+	{
+		if (instance == null) {
+			instance = new OutputTerminal();
+		}
+		
+		return instance;
 	}
 };

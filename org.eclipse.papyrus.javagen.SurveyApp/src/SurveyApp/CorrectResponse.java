@@ -4,19 +4,24 @@
 
 package SurveyApp;
 
-import SurveyApp.Comparable;
+import java.lang.Comparable;
 import SurveyApp.Output;
-import SurveyApp.Serializable;
+import java.io.*;;
 
 /************************************************************/
 /**
  * 
  */
-public abstract class CorrectResponse {
+public abstract class CorrectResponse implements java.lang.Comparable<CorrectResponse>, java.io.Serializable {
 	/**
 	 * 
 	 */
-	public void CorrectResponse() {
+	private static final long serialVersionUID = 8344575018669603214L;
+
+	/**
+	 * 
+	 */
+	public CorrectResponse() {
 	}
 
 	/**
@@ -24,7 +29,8 @@ public abstract class CorrectResponse {
 	 * @param other 
 	 * @return 
 	 */
-	public void compareTo(SurveyApp.CorrectResponse other) {
+	public int compareTo(SurveyApp.CorrectResponse other) {
+		return 0;
 	}
 
 	/**

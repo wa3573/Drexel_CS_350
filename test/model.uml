@@ -369,7 +369,6 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_mTELgMnXEeisb8Dalh-igw" name="Prompt" isAbstract="true">
     <ownedOperation xmi:type="uml:Operation" xmi:id="_pgph0MnXEeisb8Dalh-igw" name="display">
-      <ownedParameter xmi:type="uml:Parameter" xmi:id="_DvWWwMr-EeiOw4GmEXgyiw" type="_9NzTYMpPEeikC5DmfRRkSw" direction="return"/>
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_rOEQ8MsLEeiOw4GmEXgyiw" name="output" type="_mGQUAMnWEeisb8Dalh-igw"/>
     </ownedOperation>
   </packagedElement>
@@ -378,6 +377,16 @@
     <ownedAttribute xmi:type="uml:Property" xmi:id="_vo22MMnXEeisb8Dalh-igw" name="prompt" visibility="private">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
     </ownedAttribute>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_BuuoAM_OEeiikNo7uzHcRw" name="getPrompt">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_IcWWkM_OEeiikNo7uzHcRw" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+    </ownedOperation>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Cd9FgM_OEeiikNo7uzHcRw" name="setPrompt">
+      <ownedParameter xmi:type="uml:Parameter" xmi:id="_KVebYM_OEeiikNo7uzHcRw" name="prompt">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+    </ownedOperation>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_iEhSAMnYEeisb8Dalh-igw" memberEnd="_iEigIsnYEeisb8Dalh-igw _iEjuQMnYEeisb8Dalh-igw">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_iEigIMnYEeisb8Dalh-igw" source="org.eclipse.papyrus">

@@ -4,8 +4,10 @@
 
 package SurveyApp;
 
+import java.util.*;
 import SurveyApp.CorrectResponse;
 import SurveyApp.Survey;
+
 
 /************************************************************/
 /**
@@ -24,7 +26,7 @@ public class Test extends Survey {
 	/**
 	 * 
 	 */
-	public void Test() {
+	public Test() {
 	}
 
 	/**
@@ -41,7 +43,7 @@ public class Test extends Survey {
 	 * @param answer 
 	 * @return 
 	 */
-	public void enterAnswer(CorrectResponse answer) {
+	public void enterAnswer(int index, CorrectResponse answer) {
 	}
 
 	/**
@@ -66,6 +68,16 @@ public class Test extends Survey {
 	 * @return 
 	 */
 	public int getGrade() {
+		int denominator = this.correctAnswers.size();
+		int numerator = 0;
+		
+		for (int i = 0; i < this.correctAnswers.size(); i++) {
+			Question currentQuestion = this.getQuestions().get(i);
+			ArrayList<CorrectResponse> userResponses = currentQuestion.getResponsesUser();
+			
+		}
+		
+		return 0;
 	}
 
 	/**
@@ -73,20 +85,4 @@ public class Test extends Survey {
 	 * @param index 
 	 * @return 
 	 */
-	public boolean checkAnswer(int index) {
-	}
-
-	/**
-	 * 
-	 * @return 
-	 */
-	public ArrayList<Boolean> checkAnswers() {
-	}
-
-	/**
-	 * 
-	 * @return 
-	 */
-	public void displayAnswers() {
-	}
 };

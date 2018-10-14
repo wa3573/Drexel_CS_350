@@ -19,14 +19,19 @@ public class CorrectResponseInteger extends CorrectResponse {
 	/**
 	 * 
 	 */
-	public void CorrectResponseInteger() {
+	public CorrectResponseInteger() {
+	}
+	
+	public CorrectResponseInteger(int response) {
+		this.response = response;
 	}
 
 	/**
 	 * 
 	 * @return 
 	 */
-	public String getResponse() {
+	public int getResponse() {
+		return this.response;
 	}
 
 	/**
@@ -34,7 +39,10 @@ public class CorrectResponseInteger extends CorrectResponse {
 	 * @param other 
 	 * @return 
 	 */
-	public int compareTo(CorrectResponse other) {
+	public int compareTo(CorrectResponseInteger other) {
+		Integer thisValue = new Integer(this.response);
+		
+		return thisValue.compareTo(other.response);
 	}
 
 	/**
@@ -42,6 +50,7 @@ public class CorrectResponseInteger extends CorrectResponse {
 	 * @param response 
 	 * @return 
 	 */
-	public void setResponse(String response) {
+	public void setResponse(int response) {
+		this.response = response;
 	}
 };

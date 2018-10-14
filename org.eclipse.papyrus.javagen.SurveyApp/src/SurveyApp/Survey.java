@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.io.*;
 import SurveyApp.Output;
 import SurveyApp.Question;
-import SurveyApp.Serializable;
 
 /************************************************************/
 /**
@@ -54,7 +53,8 @@ public class Survey implements java.io.Serializable {
 	 * 
 	 * @return 
 	 */
-	public void addQuestion() {
+	public void addQuestion(Question question) {
+		this.questions.add(question);
 	}
 
 	/**
@@ -120,5 +120,13 @@ public class Survey implements java.io.Serializable {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public ArrayList<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(ArrayList<Question> questions) {
+		this.questions = questions;
 	}
 };

@@ -4,6 +4,7 @@
 
 package SurveyApp;
 
+import java.util.*;
 import SurveyApp.Question;
 
 /************************************************************/
@@ -23,7 +24,7 @@ public class MultipleChoice extends Question {
 	/**
 	 * 
 	 */
-	public void MultipleChoice() {
+	public MultipleChoice() {
 	}
 
 	/**
@@ -39,5 +40,10 @@ public class MultipleChoice extends Question {
 	 * @return 
 	 */
 	public ArrayList<CorrectResponse> getResponsesSystem() {
+		return this.responsesSystem;
+	}
+
+	public int getNumberChoices() {
+		return numberChoices;
 	}
 };

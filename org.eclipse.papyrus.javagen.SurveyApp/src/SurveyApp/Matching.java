@@ -4,6 +4,7 @@
 
 package SurveyApp;
 
+import java.util.*;
 import SurveyApp.Question;
 
 /************************************************************/
@@ -31,7 +32,14 @@ public class Matching extends Question {
 	/**
 	 * 
 	 */
-	public void Matching() {
+	public Matching() {
+	}
+	
+	public Matching(ArrayList<CorrectResponse> responsesLeftSystem, 
+			ArrayList<CorrectResponse> responsesRight) {
+		this.responsesLeftSystem = responsesLeftSystem;
+		this.responsesRight = responsesRight;
+		this.numUserResponses = responsesRight.size();
 	}
 
 	/**
@@ -40,7 +48,8 @@ public class Matching extends Question {
 	 * @param index2 
 	 * @return 
 	 */
-	public void swapResponses(int index1, int index2) {
+	public void swapResponsesLeftUser(int index1, int index2) {
+		Collections.swap(this.responsesLeftUser, index1, index2);
 	}
 
 	/**
@@ -49,6 +58,7 @@ public class Matching extends Question {
 	 * @return 
 	 */
 	public void setResponsesLeftUser(ArrayList<CorrectResponse> responses) {
+		this.responsesLeftUser = responses;
 	}
 
 	/**
@@ -56,6 +66,7 @@ public class Matching extends Question {
 	 * @return 
 	 */
 	public ArrayList<CorrectResponse> getResponsesLeftUser() {
+		return this.responsesLeftUser;
 	}
 
 	/**
@@ -64,6 +75,8 @@ public class Matching extends Question {
 	 * @return 
 	 */
 	public void setResponsesRight(ArrayList<CorrectResponse> responses) {
+		this.responsesRight = responses;
+		this.numUserResponses = responses.size();
 	}
 
 	/**
@@ -71,6 +84,7 @@ public class Matching extends Question {
 	 * @return 
 	 */
 	public ArrayList<CorrectResponse> getResponsesRight() {
+		return this.responsesRight;
 	}
 
 	/**
@@ -79,6 +93,7 @@ public class Matching extends Question {
 	 * @return 
 	 */
 	public void setResponsesLeftSystem(ArrayList<CorrectResponse> responses) {
+		this.responsesLeftSystem = responses;
 	}
 
 	/**
@@ -86,5 +101,10 @@ public class Matching extends Question {
 	 * @return 
 	 */
 	public ArrayList<CorrectResponse> getResponsesLeftSystem() {
+		return this.responsesLeftSystem;
+	}
+
+	public int getNumUserResponses() {
+		return numUserResponses;
 	}
 };

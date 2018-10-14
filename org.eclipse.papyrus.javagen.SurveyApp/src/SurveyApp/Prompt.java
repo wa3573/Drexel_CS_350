@@ -18,4 +18,8 @@ public abstract class Prompt {
 	 */
 	public void display(Output output) {
 	}
+	
+	public String toString() {
+		return "";
+	}
 };

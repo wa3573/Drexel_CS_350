@@ -801,6 +801,14 @@
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_sjV2xcnXEeisb8Dalh-igw"/>
       </children>
       <children xmi:type="notation:BasicCompartment" xmi:id="_sjV2xsnXEeisb8Dalh-igw" type="Class_OperationCompartment">
+        <children xmi:type="notation:Shape" xmi:id="_B7PaAM_OEeiikNo7uzHcRw" type="Operation_ClassOperationLabel">
+          <element xmi:type="uml:Operation" href="model.uml#_BuuoAM_OEeiikNo7uzHcRw"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_B7PaAc_OEeiikNo7uzHcRw"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_CqKVgM_OEeiikNo7uzHcRw" type="Operation_ClassOperationLabel">
+          <element xmi:type="uml:Operation" href="model.uml#_Cd9FgM_OEeiikNo7uzHcRw"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_CqKVgc_OEeiikNo7uzHcRw"/>
+        </children>
         <styles xmi:type="notation:TitleStyle" xmi:id="_sjV2x8nXEeisb8Dalh-igw"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_sjV2yMnXEeisb8Dalh-igw"/>
         <styles xmi:type="notation:FilteringStyle" xmi:id="_sjV2ycnXEeisb8Dalh-igw"/>

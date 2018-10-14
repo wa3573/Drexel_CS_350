@@ -12,6 +12,20 @@ public abstract class Output {
 	/**
 	 * 
 	 */
-	public void Output() {
+	public Output() {
 	}
+	
+	public void displayInteger(int output) {
+		System.out.print(output);
+	}
+
+	/**
+	 * 
+	 * @param output 
+	 * @return 
+	 */
+	public void displayString(String output) {
+		System.out.print(output);
+	}
+	
 };

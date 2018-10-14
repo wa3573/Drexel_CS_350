@@ -5,6 +5,7 @@
 package SurveyApp;
 
 import SurveyApp.Prompt;
+import SurveyApp.Output;
 
 /************************************************************/
 /**
@@ -15,4 +16,20 @@ public class PromptString extends Prompt {
 	 * 
 	 */
 	private String prompt;
+	
+	public void display(Output output) {
+		output.displayString(this.prompt);
+	}
+	
+	public String toString() {
+		return this.prompt;
+	}
+
+	public String getPrompt() {
+		return this.prompt;
+	}
+
+	public void setPrompt(String prompt) {
+		this.prompt = prompt;
+	}
 };

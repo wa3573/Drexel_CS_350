@@ -4,6 +4,7 @@
 
 package SurveyApp;
 
+import java.util.*;
 import SurveyApp.Essay;
 
 /************************************************************/
@@ -23,7 +24,7 @@ public class ShortAnswer extends Essay {
 	/**
 	 * 
 	 */
-	public void ShortAnswer() {
+	public ShortAnswer() {
 	}
 
 	/**
@@ -32,6 +33,7 @@ public class ShortAnswer extends Essay {
 	 * @return 
 	 */
 	public void setMaxLength(int length) {
+		this.maxLength = length;
 	}
 
 	/**
@@ -39,6 +41,7 @@ public class ShortAnswer extends Essay {
 	 * @return 
 	 */
 	public int getMaxLength() {
+		return this.maxLength;
 	}
 
 	/**
@@ -46,6 +49,7 @@ public class ShortAnswer extends Essay {
 	 * @return 
 	 */
 	public ArrayList<CorrectResponse> getResponsesSystem() {
+		return this.responsesSystem;
 	}
 
 	/**
@@ -54,5 +58,10 @@ public class ShortAnswer extends Essay {
 	 * @param responses 
 	 */
 	public void setResponsesSystem(ArrayList<CorrectResponse> responses) {
+		if (responses.size() > 1) {
+			System.err.println("setResponsesSystem(): Error, more than one response provided");
+		}
+		
+		this.responsesSystem = responses;
 	}
 };

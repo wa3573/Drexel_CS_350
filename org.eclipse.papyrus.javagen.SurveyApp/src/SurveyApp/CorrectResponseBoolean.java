@@ -22,12 +22,17 @@ public class CorrectResponseBoolean extends CorrectResponse {
 	 * @return 
 	 */
 	public void setResponse(boolean response) {
+		this.response = response;
 	}
 
 	/**
 	 * 
 	 */
-	public void CorrectResponseBoolean() {
+	public CorrectResponseBoolean() {
+	}
+	
+	public CorrectResponseBoolean(boolean response) {
+		this.response = response;
 	}
 
 	/**
@@ -35,6 +40,7 @@ public class CorrectResponseBoolean extends CorrectResponse {
 	 * @return 
 	 */
 	public boolean getResponse() {
+		return this.response;
 	}
 
 	/**
@@ -42,6 +48,9 @@ public class CorrectResponseBoolean extends CorrectResponse {
 	 * @param other 
 	 * @return 
 	 */
-	public int compareTo(CorrectResponse other) {
+	public int compareTo(CorrectResponseBoolean other) {
+		Boolean thisValue = new Boolean(this.response);
+		
+		return thisValue.compareTo(other.response);
 	}
 };
