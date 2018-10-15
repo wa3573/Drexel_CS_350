@@ -189,7 +189,7 @@
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_S-muMcsJEeiOw4GmEXgyiw" type="_zT3mkMpfEeikC5DmfRRkSw" direction="return"/>
     </ownedOperation>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_JUj7AMm6Eeisb8Dalh-igw" name="TureFalse">
+  <packagedElement xmi:type="uml:Class" xmi:id="_JUj7AMm6Eeisb8Dalh-igw" name="TrueFalse">
     <generalization xmi:type="uml:Generalization" xmi:id="_8K-ZIMm6Eeisb8Dalh-igw" general="_GAaCoMm6Eeisb8Dalh-igw"/>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_N01BMMm6Eeisb8Dalh-igw" name="numberChoices" visibility="private">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>

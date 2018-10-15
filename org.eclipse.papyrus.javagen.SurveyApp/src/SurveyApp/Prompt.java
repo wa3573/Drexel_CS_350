@@ -20,6 +20,6 @@ public abstract class Prompt {
 	}
 	
 	public String toString() {
-		return "";
+		return new String("");
 	}
 };

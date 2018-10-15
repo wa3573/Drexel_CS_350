@@ -10,19 +10,10 @@ import SurveyApp.MultipleChoice;
 /**
  * 
  */
-public class TureFalse extends MultipleChoice {
-	/**
-	 * 
-	 */
-	private int numberChoices = 2;
-	/**
-	 * 
-	 */
-	private int numberResponsesUser = 1;
+public class TrueFalse extends MultipleChoice {
 
-	/**
-	 * 
-	 */
-	public void TrueFalse() {
+	public TrueFalse() {
 	}
+	
+
 };

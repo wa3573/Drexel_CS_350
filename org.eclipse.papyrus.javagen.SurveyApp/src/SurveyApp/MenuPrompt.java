@@ -28,7 +28,7 @@ public class MenuPrompt extends Menu {
 	/**
 	 * 
 	 */
-	public void MenuPrompt() {
+	public MenuPrompt() {
 	}
 
 	/**

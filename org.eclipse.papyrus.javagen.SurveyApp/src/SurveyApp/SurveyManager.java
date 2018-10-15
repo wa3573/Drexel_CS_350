@@ -21,7 +21,7 @@ public class SurveyManager {
 	 * 
 	 * @param filePath 
 	 */
-	public void SurveyManager(String filePath) {
+	public SurveyManager() {
 	}
 
 	/**

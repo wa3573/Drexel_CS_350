@@ -17,6 +17,14 @@ public class PromptString extends Prompt {
 	 */
 	private String prompt;
 	
+	public PromptString() {
+		
+	}
+	
+	public PromptString(String prompt) {
+		this.prompt = prompt;
+	}
+	
 	public void display(Output output) {
 		output.displayString(this.prompt);
 	}

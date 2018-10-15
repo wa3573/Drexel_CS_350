@@ -40,6 +40,7 @@ public abstract class Question {
 	 * @param prompt 
 	 */
 	public void setPrompt(Prompt prompt) {
+		this.prompt = prompt;
 	}
 
 	/**

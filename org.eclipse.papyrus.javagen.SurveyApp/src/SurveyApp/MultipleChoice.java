@@ -32,7 +32,8 @@ public class MultipleChoice extends Question {
 	 * @return 
 	 * @param responses 
 	 */
-	public void setResponsesSystem(ArrayList<CorrectResponse> responses) {
+	public void setResponsesSystem(ArrayList<T> responses) {
+		this.responsesSystem = responses;
 	}
 
 	/**
@@ -45,5 +46,25 @@ public class MultipleChoice extends Question {
 
 	public int getNumberChoices() {
 		return numberChoices;
+	}
+	
+	public boolean isCorrect() {
+		boolean result = true;
+		
+		/* Check that each system response is contained in the user responses */
+		for (int i = 0; i < this.getResponsesSystem().size(); i++) {
+			if (!this.getResponsesUser().contains(this.getResponsesSystem().get(i))) {
+				result = false;
+			}
+		}
+		
+		/* Check that each user response is contained in the system responses */
+		for (int i = 0; i < this.getResponsesUser().size(); i++) {
+			if (!this.getResponsesSystem().contains(this.getResponsesUser().get(i))) {
+				result = false;
+			}
+		}
+		
+		return result;
 	}
 };

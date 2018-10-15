@@ -4,6 +4,8 @@
 
 package SurveyApp;
 
+import java.util.*;
+
 /************************************************************/
 /**
  * 
@@ -17,7 +19,7 @@ public class MenuManager {
 	/**
 	 * 
 	 */
-	public void MenuManager() {
+	public MenuManager() {
 	}
 
 	/**
