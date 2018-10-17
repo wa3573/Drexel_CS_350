@@ -53,4 +53,10 @@ public class CorrectResponseBoolean extends CorrectResponse {
 		
 		return thisValue.compareTo(other.response);
 	}
+	
+	public String toString() {
+		Boolean thisValue = new Boolean(this.getResponse());
+		
+		return thisValue.toString();
+	}
 };

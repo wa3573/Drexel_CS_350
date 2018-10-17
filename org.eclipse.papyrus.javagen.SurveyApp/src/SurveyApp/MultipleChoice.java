@@ -32,7 +32,7 @@ public class MultipleChoice extends Question {
 	 * @return 
 	 * @param responses 
 	 */
-	public void setResponsesSystem(ArrayList<T> responses) {
+	public void setResponsesSystem(ArrayList<CorrectResponse> responses) {
 		this.responsesSystem = responses;
 	}
 

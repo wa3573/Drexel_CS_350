@@ -8,7 +8,6 @@ import java.util.*;
 import SurveyApp.CorrectResponse;
 import SurveyApp.Output;
 import SurveyApp.Prompt;
-import SurveyApp.Serializable;
 
 /************************************************************/
 /**

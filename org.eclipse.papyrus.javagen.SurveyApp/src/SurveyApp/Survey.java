@@ -47,6 +47,7 @@ public class Survey implements java.io.Serializable {
 	 * @param questions 
 	 */
 	public Survey() {
+		this.questions = new ArrayList<Question>();
 	}
 
 	/**
@@ -90,6 +91,11 @@ public class Survey implements java.io.Serializable {
 	 * @param output 
 	 */
 	public void display(Output output) {
+		for (int i = 0; i < this.getQuestions().size(); i++) {
+			String line = (i + 1) + ") " + this.getQuestion(i) + "\n";
+			
+			output.displayString(line);
+		}
 	}
 
 	/**

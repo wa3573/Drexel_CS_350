@@ -5,6 +5,7 @@
 package SurveyApp;
 
 import SurveyApp.MultipleChoice;
+import SurveyApp.Output;
 
 /************************************************************/
 /**
@@ -15,5 +16,24 @@ public class TrueFalse extends MultipleChoice {
 	public TrueFalse() {
 	}
 	
-
+	public void display(Output output) {
+		String line = "[T/F]\t" + this.getPrompt().toString();
+		
+		output.displayString(line);
+	}
+	
+	public String toString() {
+		String currentAnswer;
+		
+		if (this.getResponsesUser().isEmpty()) {
+			currentAnswer = "";
+		} else {
+			currentAnswer = this.getResponsesUser().get(0).toString();
+		}
+		
+		String line = "[T/F]\t" + this.getPrompt().toString() + " : "
+				+ currentAnswer;
+		
+		return line;
+	}
 };

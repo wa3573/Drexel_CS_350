@@ -54,12 +54,30 @@ public class Main {
 		TrueFalse testQuestion1 = new TrueFalse();
 		Prompt testPrompt1 = new PromptString("The sky is blue.");
 		CorrectResponseBoolean testAnswer1 = new CorrectResponseBoolean(true);
-		ArrayList<CorrectResponseBoolean> testAnswers1 = new ArrayList<CorrectResponseBoolean>();
+		ArrayList<CorrectResponse> testAnswers1 = new ArrayList<CorrectResponse>();
 		testAnswers1.add(testAnswer1);
 		
 		testQuestion1.setPrompt(testPrompt1);
 		testQuestion1.setResponsesSystem(testAnswers1);
 		testQuestion1.display(mainOutput);
 		
+		CorrectResponseBoolean testResponse1 = new CorrectResponseBoolean(true);
+		ArrayList<CorrectResponse> testResponses1 = new ArrayList<CorrectResponse>();
+		
+		testResponses1.add(testAnswer1);
+		
+		testQuestion1.setResponsesUser(testResponses1);
+		
+		System.out.println("\n" + testQuestion1.isCorrect());
+		
+		testResponse1 = new CorrectResponseBoolean(false);
+		testResponses1 = new ArrayList<CorrectResponse>();
+		
+		testQuestion1.setResponsesUser(testResponses1);
+		
+		System.out.println("\n" + testQuestion1.isCorrect());
+		
+		testSurvey.addQuestion(testQuestion1);
+		testSurvey.display(mainOutput);
 	}
 };

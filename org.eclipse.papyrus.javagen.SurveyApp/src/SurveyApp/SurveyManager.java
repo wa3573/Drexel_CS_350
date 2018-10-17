@@ -4,7 +4,6 @@
 
 package SurveyApp;
 
-import SurveyApp.Serializable;
 import SurveyApp.Survey;
 
 /************************************************************/
