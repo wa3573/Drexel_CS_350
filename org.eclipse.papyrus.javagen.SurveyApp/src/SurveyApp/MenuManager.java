@@ -5,6 +5,7 @@
 package SurveyApp;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 /************************************************************/
 /**
@@ -15,11 +16,28 @@ public class MenuManager {
 	 * 
 	 */
 	private ArrayList<Menu> menus;
-
+	
+	private Menu menuActive;
+	private Scanner reader = new Scanner(System.in);
+	private static final Pattern ALPHANUMERIC = Pattern.compile("[^a-zA-Z0-9]");
 	/**
 	 * 
 	 */
 	public MenuManager() {
+		Menu menuHome = new MenuHome();
+		ArrayList<Menu> menus = new ArrayList<Menu>();
+		
+		menus.add(menuHome);
+		
+		this.setMenus(menus);
+		this.setMenuActive(menuHome);
+		this.displayMenuActive();
+		
+		while (this.getMenuActive() != null) {
+			this.getNewMenu();
+			System.out.println();
+			this.displayMenuActive();
+		}
 	}
 
 	/**
@@ -28,6 +46,11 @@ public class MenuManager {
 	 * @return 
 	 */
 	public void setMenus(ArrayList<Menu> menus) {
+		this.menus = menus;
+	}
+	
+	public ArrayList<Menu> getMenus() {
+		return menus;
 	}
 
 	/**
@@ -36,5 +59,34 @@ public class MenuManager {
 	 * @return 
 	 */
 	public void displayMenu(int index) {
+		System.out.print(this.getMenus().get(index));
+		System.out.println("\nPlease select a choice:");
 	}
+	
+	public void displayMenuActive() {
+		System.out.print(this.menuActive);
+		System.out.println("\nPlease select a choice:");
+	}
+
+	public Menu getMenuActive() {
+		return menuActive;
+	}
+
+	public void setMenuActive(Menu menuActive) {
+		this.menuActive = menuActive;
+	}
+	
+	
+	public void getNewMenu() {
+		int userResponse = this.reader.nextInt();
+		int numChoices = this.menuActive.getNumberChoices();
+		
+		while (userResponse < 1 | userResponse > numChoices) {
+			System.out.println("Please enter a valid choice:");
+			userResponse = this.reader.nextInt();
+		}
+		
+		this.menuActive = this.menuActive.selectChoice(userResponse);
+	}
+
 };

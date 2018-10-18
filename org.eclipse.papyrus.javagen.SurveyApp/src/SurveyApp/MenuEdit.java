@@ -6,13 +6,13 @@ package SurveyApp;
 
 import java.util.ArrayList;
 
-import SurveyApp.MenuCreate;
+import SurveyApp.MenuCreateSurvey;
 
 /************************************************************/
 /**
  * 
  */
-public class MenuEdit extends MenuCreate {
+public class MenuEdit extends MenuCreateSurvey {
 
 	public MenuEdit() {
 		MenuChoice choice1 = new MenuChoice("Open", 1);

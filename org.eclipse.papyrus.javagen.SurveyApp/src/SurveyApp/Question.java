@@ -31,6 +31,7 @@ public abstract class Question {
 	 * 
 	 */
 	public Question() {
+		this.responsesUser = new ArrayList<CorrectResponse>();
 	}
 
 	/**

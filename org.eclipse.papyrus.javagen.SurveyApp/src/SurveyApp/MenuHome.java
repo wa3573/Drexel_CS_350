@@ -15,11 +15,15 @@ import SurveyApp.MenuChoice;
 public class MenuHome extends Menu {
 
 	public MenuHome() {
-		MenuChoice choice1 = new MenuChoice("Create", 1);
-		MenuChoice choice2 = new MenuChoice("Edit", 2);
-		MenuChoice choice3 = new MenuChoice("Fill", 3);
-		MenuChoice choice4 = new MenuChoice("Grade", 4);
-		MenuChoice choice5 = new MenuChoice("Exit", 5);
+		MenuChoice choice1 = new MenuChoice("Create a new Survey", 1);
+		MenuChoice choice2 = new MenuChoice("Create a new Test ", 2);
+		MenuChoice choice3 = new MenuChoice("Display a Survey", 3);
+		MenuChoice choice4 = new MenuChoice("Display a Test", 4);
+		MenuChoice choice5 = new MenuChoice("Load a Survey", 5);
+		MenuChoice choice6 = new MenuChoice("Load a Test", 6);
+		MenuChoice choice7 = new MenuChoice("Save a Survey", 7);
+		MenuChoice choice8 = new MenuChoice("Save a Test", 8);
+		MenuChoice choice9 = new MenuChoice("Quit", 9);
 		
 		ArrayList<MenuChoice> choices = new ArrayList<MenuChoice>();
 		
@@ -28,6 +32,10 @@ public class MenuHome extends Menu {
 		choices.add(choice3);
 		choices.add(choice4);
 		choices.add(choice5);
+		choices.add(choice6);
+		choices.add(choice7);
+		choices.add(choice8);
+		choices.add(choice9);
 		
 		this.setChoices(choices);
 	}
@@ -36,27 +44,32 @@ public class MenuHome extends Menu {
 	 * @override
 	 */
 	
-	public SurveyApp.Menu selectChoice(int index) {
+	public Menu selectChoice(int index) {
 		
 		Menu newMenu;
 		
 		switch (index) {
 		case 1:
 			/* Create */
-			newMenu = new MenuCreate();
+			newMenu = new MenuCreateSurvey();
+			break;
 		case 2:
 			/* Edit */
 			newMenu = new MenuEdit();
+			break;
 		case 3:
 			/* Fill */
 			newMenu = new MenuFill();
+			break;
 		case 4:
 			/* Grade */
 			newMenu = new MenuGrade();
-		case 5:
+			break;
+		case 9:
 			/* Exit */
 			newMenu = null;
 			System.exit(0);
+			break;
 			
 		default:
 			newMenu = null;
@@ -64,5 +77,16 @@ public class MenuHome extends Menu {
 		}
 		
 		return newMenu;
+	}
+	
+	public String toString() {
+		String out = "";
+		
+		for (int i = 0; i < this.getNumberChoices(); i++) {
+			MenuChoice thisChoice = this.getChoices().get(i);
+			out += thisChoice.getIndex() + ") " + thisChoice.getValue() + "\n";
+		}
+		
+		return out;
 	}
 };

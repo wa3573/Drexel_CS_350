@@ -135,4 +135,15 @@ public class Survey implements java.io.Serializable {
 	public void setQuestions(ArrayList<Question> questions) {
 		this.questions = questions;
 	}
+	
+	public String toString() {
+		String out = "";
+		for (int i = 0; i < this.getQuestions().size(); i++) {
+			out += (i + 1) + ") " + this.getQuestion(i) + "\n";
+			
+			
+		}
+		
+		return out;
+	}
 };

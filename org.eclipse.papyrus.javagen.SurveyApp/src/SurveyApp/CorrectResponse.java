@@ -6,7 +6,7 @@ package SurveyApp;
 
 import java.lang.Comparable;
 import SurveyApp.Output;
-import java.io.*;;
+import java.io.*;
 
 /************************************************************/
 /**

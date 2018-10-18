@@ -15,6 +15,7 @@ public class SurveyManager {
 	 * 
 	 */
 	private String filePath;
+	private Survey surveyActive;
 
 	/**
 	 * 

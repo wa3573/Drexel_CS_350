@@ -17,7 +17,7 @@ import SurveyApp.Test;
 /**
  * 
  */
-public class MenuCreate extends Menu {
+public class MenuCreateSurvey extends Menu {
 
 	private String filePath;
 
@@ -28,13 +28,14 @@ public class MenuCreate extends Menu {
 	private Scanner reader = new Scanner(System.in);
 	private static final Pattern ALPHANUMERIC = Pattern.compile("[^a-zA-Z0-9]");
 	
-	public MenuCreate() {
-		MenuChoice choice1 = new MenuChoice("Set survey/test", 1);
-		MenuChoice choice2 = new MenuChoice("Set author", 2);
-		MenuChoice choice3 = new MenuChoice("Set title", 3);
-		MenuChoice choice4 = new MenuChoice("Add question", 4);
-		MenuChoice choice5 = new MenuChoice("Save", 5);
-		MenuChoice choice6 = new MenuChoice("Return", 6);
+	public MenuCreateSurvey() {
+		MenuChoice choice1 = new MenuChoice("Add a new T/F question", 1);
+		MenuChoice choice2 = new MenuChoice("Add a new multiple choice question", 2);
+		MenuChoice choice3 = new MenuChoice("Add a new short answer question", 3);
+		MenuChoice choice4 = new MenuChoice("Add a new essay question", 4);
+		MenuChoice choice5 = new MenuChoice("Add a new ranking question", 5);
+		MenuChoice choice6 = new MenuChoice("Add a new matching question", 6);
+		MenuChoice choice7 = new MenuChoice("Return", 6);
 		
 		ArrayList<MenuChoice> choices = new ArrayList<MenuChoice>();
 		
@@ -44,6 +45,7 @@ public class MenuCreate extends Menu {
 		choices.add(choice4);
 		choices.add(choice5);
 		choices.add(choice6);
+		choices.add(choice7);
 		
 		this.setChoices(choices);
 		

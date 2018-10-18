@@ -20,6 +20,8 @@ public class MultipleChoice extends Question {
 	 * 
 	 */
 	private ArrayList<CorrectResponse> responsesSystem;
+	
+	private ArrayList<CorrectResponse> responsesPossible;
 
 	/**
 	 * 
@@ -66,5 +68,13 @@ public class MultipleChoice extends Question {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<CorrectResponse> getResponsesPossible() {
+		return responsesPossible;
+	}
+
+	public void setResponsesPossible(ArrayList<CorrectResponse> responsesPossible) {
+		this.responsesPossible = responsesPossible;
 	}
 };

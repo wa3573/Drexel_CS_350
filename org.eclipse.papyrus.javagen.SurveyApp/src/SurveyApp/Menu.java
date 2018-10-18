@@ -74,4 +74,15 @@ public abstract class Menu {
 	public int getNumberChoices() {
 		return this.numberChoices;
 	}
+	
+	public String toString() {
+		String out = "";
+		
+		for (int i = 0; i < this.getNumberChoices(); i++) {
+			MenuChoice thisChoice = this.getChoices().get(i);
+			out += thisChoice.getIndex() + ") " + thisChoice.getValue() + "\n";
+		}
+		
+		return out;
+	}
 };
