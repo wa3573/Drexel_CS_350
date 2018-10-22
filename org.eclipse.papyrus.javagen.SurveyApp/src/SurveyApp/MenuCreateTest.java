@@ -34,6 +34,9 @@ public class MenuCreateTest extends MenuCreateSurvey {
     private static final ArrayList<String> KNOWN_STRINGS_FALSE = new ArrayList<String>();
     private static final ArrayList<String> KNOWN_STRINGS_TRUE = new ArrayList<String>();
 
+    /* initKnownStrings() is responsible for populating the lists of known
+     * strings which are used to verify input.
+     */
     private static void initKnownStrings() {
 	KNOWN_STRINGS_FALSE.add("F");
 	KNOWN_STRINGS_FALSE.add("f");
@@ -121,6 +124,10 @@ public class MenuCreateTest extends MenuCreateSurvey {
 
     }
 
+    /* isKnownResponseBoolen() checks a given user response
+     * and returns true if the user's response appears in any of the responses
+     * which are known by the system.
+     */
     private boolean isKnownResponseBoolean(String response) {
 	boolean isKnownResponse = false;
 
@@ -131,6 +138,10 @@ public class MenuCreateTest extends MenuCreateSurvey {
 	return isKnownResponse;
     }
 
+    /* Once a boolean user response is verified to be known by the system, it can be parsed
+     * and converted to a boolean primitive type, to be further used by the program.
+     * parseResponseBoolean() performs this task and returns a primitive boolean.
+     */
     private boolean parseResponseBoolean(String response) {
 	boolean result = false;
 	String temp = response;
@@ -162,6 +173,9 @@ public class MenuCreateTest extends MenuCreateSurvey {
 	    TrueFalse newQuestionTF = new TrueFalse();
 	    newQuestionTF.setPrompt(newPrompt);
 
+	    /* Get correct answer in the form of true/false, verify the user 
+	     * input, then set the question accordingly.
+	     */
 	    userResponse1 = this.promptForString("Enter the correct answer for your true/false question:");
 	    boolean isKnownResponse = isKnownResponseBoolean(userResponse1);
 
@@ -194,13 +208,13 @@ public class MenuCreateTest extends MenuCreateSurvey {
 	    numberNewResponses = this
 		    .promptForInteger("Enter the number of choices for your multiple choice question:");
 
+	    /* Get each choice and determine if it is a correct answer */
 	    for (int i = 0; i < numberNewResponses; i++) {
-		System.out.println("Enter Choice #" + (i + 1) + ":");
-		userResponse1 = this.reader.nextLine();
-
+		userResponse1 = this.promptForString("Enter Choice #" + (i + 1) + ":");
 		newResponse = new CorrectResponseString(userResponse1);
 		newResponses.add(newResponse);
 
+		/* Correct answers are added to a separate list */
 		if (this.promptBoolean("Is this a correct answer?")) {
 		    newAnswers.add(newResponse);
 		}

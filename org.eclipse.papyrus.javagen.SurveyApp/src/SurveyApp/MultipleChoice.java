@@ -42,10 +42,6 @@ public class MultipleChoice extends Question implements java.io.Serializable {
 	this.responsesSystem = responses;
     }
 
-    /**
-     * 
-     * @return
-     */
     public ArrayList<CorrectResponse> getResponsesSystem() {
 	return this.responsesSystem;
     }

@@ -7,35 +7,18 @@ package SurveyApp;
 import SurveyApp.Output;
 
 /************************************************************/
-/**
- * 
- */
+
 public abstract class CorrectResponse implements java.lang.Comparable<CorrectResponse>, java.io.Serializable {
-    /**
-     * 
-     */
+
     private static final long serialVersionUID = 8344575018669603214L;
 
-    /**
-     * 
-     */
     public CorrectResponse() {
     }
 
-    /**
-     * 
-     * @param other
-     * @return
-     */
     public int compareTo(SurveyApp.CorrectResponse other) {
 	return 0;
     }
 
-    /**
-     * 
-     * @param output
-     * @return
-     */
     public void display(Output output) {
     }
 };

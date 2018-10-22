@@ -15,9 +15,7 @@ import SurveyApp.Survey;
 import SurveyApp.SurveyManager;
 
 /************************************************************/
-/**
- * 
- */
+
 public class MenuCreateSurvey extends Menu {
 
     private String filePath;
@@ -28,7 +26,6 @@ public class MenuCreateSurvey extends Menu {
     private Boolean isSaved;
 
     private Scanner reader = new Scanner(System.in);
-//	private static final Pattern ALPHANUMERIC = Pattern.compile("[^a-zA-Z0-9]");
 
     public MenuCreateSurvey() {
 	MenuChoice choice1 = new MenuChoice("Add a new T/F question", 1);
@@ -63,6 +60,7 @@ public class MenuCreateSurvey extends Menu {
 	System.out.println(prompt);
 	int result = 0;
 
+	/* Catch any invalid (non-integer) input and request valid input */
 	while (result == 0) {
 	    try {
 		result = Integer.parseInt(this.reader.nextLine());
@@ -82,7 +80,12 @@ public class MenuCreateSurvey extends Menu {
 	return result;
     }
 
-    private ArrayList<CorrectResponse> promptCorrectResponses(int n) {
+    /*
+     * Prompts for n correct responses, one at a time, then returns a new list
+     * containing those responses, in order.
+     */
+    private ArrayList<CorrectResponse> promptForCorrectResponses(int n) {
+
 	String userResponse;
 	CorrectResponse newResponse;
 	ArrayList<CorrectResponse> newResponses = new ArrayList<CorrectResponse>();
@@ -126,7 +129,7 @@ public class MenuCreateSurvey extends Menu {
 
 	    numberNewResponses = this
 		    .promptForInteger("Enter the number of choices for your multiple choice question:");
-	    newResponses = promptCorrectResponses(numberNewResponses);
+	    newResponses = promptForCorrectResponses(numberNewResponses);
 	    newQuestionMC.setResponsesPossible(newResponses);
 
 	    this.questions.add(newQuestionMC);
@@ -163,7 +166,7 @@ public class MenuCreateSurvey extends Menu {
 	    newQuestionR.setPrompt(newPrompt);
 
 	    numberNewResponses = this.promptForInteger("Enter the number of choices for your ranking question:");
-	    newResponses = promptCorrectResponses(numberNewResponses);
+	    newResponses = promptForCorrectResponses(numberNewResponses);
 	    newQuestionR.setResponsesLeftSystem(newResponses);
 
 	    this.questions.add(newQuestionR);
@@ -178,6 +181,8 @@ public class MenuCreateSurvey extends Menu {
 	    newQuestionM.setPrompt(newPrompt);
 
 	    numberNewResponses = this.promptForInteger("Enter the number of choices for your matching question:");
+	    
+	    /* Get/set left choices. */
 	    newResponses = new ArrayList<CorrectResponse>();
 
 	    for (int i = 0; i < numberNewResponses; i++) {
@@ -187,7 +192,8 @@ public class MenuCreateSurvey extends Menu {
 	    }
 
 	    newQuestionM.setResponsesLeftSystem(newResponses);
-
+	    
+	    /* Get/set right choices */
 	    newResponses = new ArrayList<CorrectResponse>();
 
 	    for (int i = 0; i < numberNewResponses; i++) {
@@ -214,6 +220,21 @@ public class MenuCreateSurvey extends Menu {
 	this.survey.setQuestions(this.questions);
 
 	return newMenu;
+    }
+    
+    public String toString() {
+	String out = DIVIDER + "\n\t\t\t || Survey Creation Menu ||\n" + DIVIDER + "\n";
+
+	if (!this.getSurvey().getQuestions().isEmpty()) {
+	    out += "\nCurrent survey: \n" + this.survey + "\n" + DIVIDER + "\n";
+	}
+
+	for (int i = 0; i < this.getNumberChoices(); i++) {
+	    MenuChoice thisChoice = this.getChoices().get(i);
+	    out += thisChoice.getIndex() + ") " + thisChoice.getValue() + "\n";
+	}
+
+	return out;
     }
 
     public String getFilePath() {
@@ -246,21 +267,6 @@ public class MenuCreateSurvey extends Menu {
 
     public void setIsSaved(Boolean isSaved) {
 	this.isSaved = isSaved;
-    }
-
-    public String toString() {
-	String out = DIVIDER + "\n\t\t\t || Survey Creation Menu ||\n" + DIVIDER + "\n";
-
-	if (!this.getSurvey().getQuestions().isEmpty()) {
-	    out += "\nCurrent survey: \n" + this.survey + "\n" + DIVIDER + "\n";
-	}
-
-	for (int i = 0; i < this.getNumberChoices(); i++) {
-	    MenuChoice thisChoice = this.getChoices().get(i);
-	    out += thisChoice.getIndex() + ") " + thisChoice.getValue() + "\n";
-	}
-
-	return out;
     }
 
 };

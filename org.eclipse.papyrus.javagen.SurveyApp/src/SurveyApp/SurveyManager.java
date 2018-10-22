@@ -16,29 +16,34 @@ import java.util.regex.Pattern;
 import SurveyApp.Survey;
 
 /************************************************************/
-/**
- * 
- */
+
 public class SurveyManager {
     /**
-     * 
+     * SurveyManager is a singleton class. Any class which needs access to it will
+     * call SurveyManager.getInstance() to obtain the statically allocated instance
+     * of it. This allows for an active work item as the user traverses different
+     * menus.
      */
+
+    /* Note: at this time, filePath only supports the file name itself */
     private String filePath;
     private Survey surveyActive;
     private boolean isSurveyActiveGradable;
     private boolean isSaved;
     private static SurveyManager instance = null;
     private Scanner reader = new Scanner(System.in);
-//	private static final Pattern ALPHANUMERIC_PATTERN = Pattern.compile("[^a-zA-Z0-9]");
-    private static final Pattern FILE_PATH_PATTERN = Pattern.compile("[\\ / : ? * \" > < |]");
 
+    /*
+     * While UNIX is less restrictive with characters allowed in file names, the
+     * more restrictive requirements of the Windows OS has been chosen, as it will
+     * work for the both cases. This pattern detects any invalid characters based on
+     * that scheme.
+     */
+    private static final Pattern FILE_PATH_PATTERN = Pattern.compile("[\\/:?*\"><|]");
+
+    /* TODO: add functionality to set destination folder */
     private static final String saveDirPath = "userFiles/";
 
-//	private static final String saveDirPath = "";
-    /**
-     * 
-     * @param filePath
-     */
     private SurveyManager() {
 	isSaved = true;
     }
@@ -51,19 +56,7 @@ public class SurveyManager {
 	return instance;
     }
 
-    /**
-     * 
-     * @param filePath
-     */
-    public void load(String filePath) {
-    }
-
-    /**
-     * 
-     * @param survey
-     * @param filePath
-     */
-    public void promptFilePath() {
+    private void promptForFilePath() {
 	String userResponse = "";
 	File saveDirectory = new File(saveDirPath);
 
@@ -73,14 +66,16 @@ public class SurveyManager {
 
 	System.out.print("Enter filename (without extension): ");
 	userResponse = reader.nextLine();
-	boolean isNotAlphanumeric = FILE_PATH_PATTERN.matcher(userResponse).find();
+	boolean isNotValidFilename = FILE_PATH_PATTERN.matcher(userResponse).find();
 
-	while (isNotAlphanumeric) {
-	    System.out.print("Please enter only alphanumeric characters. " + "Enter filename (without extension): ");
+	while (isNotValidFilename) {
+	    System.out.print("File names may not contain any of these characters \\ / : ? * \" > < | \n"
+		    + "Enter filename (without extension): ");
 	    userResponse = reader.nextLine();
-	    isNotAlphanumeric = FILE_PATH_PATTERN.matcher(userResponse).find();
+	    isNotValidFilename = FILE_PATH_PATTERN.matcher(userResponse).find();
 	}
 
+	/* Append the appropriate file extension */
 	if (this.isSurveyActiveGradable) {
 	    this.filePath = saveDirPath + userResponse + ".test";
 	} else {
@@ -105,16 +100,32 @@ public class SurveyManager {
     }
 
     public void saveActive() {
+	/*
+	 * If the manager's file path is not already set, prompt the user for it.
+	 * Otherwise, ask the user if they would like to keep the current path. If not,
+	 * prompt for the new path.
+	 */
 	if (this.getFilePath() == null) {
-	    this.promptFilePath();
+	    this.promptForFilePath();
 	} else {
-	    String prompt = "Current path is '" + this.getFilePath() + "', keep current path?";
+	    String prompt = "Current path is '" + this.getFilePath() + "'\n" + "Keep current path?";
 
 	    if (!this.promptBoolean(prompt)) {
-		this.promptFilePath();
+		this.promptForFilePath();
 	    }
 	}
 
+	/* Check if the file exists and ask to overwrite */
+	File outputFile = new File(this.getFilePath());
+
+	if (outputFile.exists()) {
+	    if (!this.promptBoolean(
+		    "File '" + this.getFilePath() + "' already exists.\n" + "Would you like to overwrite it?")) {
+		return;
+	    }
+	}
+
+	/* Write the file */
 	try {
 	    FileOutputStream file = new FileOutputStream(this.getFilePath());
 	    ObjectOutputStream out = new ObjectOutputStream(file);
@@ -133,24 +144,32 @@ public class SurveyManager {
     }
 
     public void loadActive() {
-	Survey loadedSurvey = null;
+	Survey loadedSurvey = null; // Storage variable for method's scope
 
+	/* Check/prompt for file path */
 	if (this.getFilePath() == null) {
-	    this.promptFilePath();
+	    this.promptForFilePath();
 	} else {
 	    String prompt = "Current path is '" + this.getFilePath() + "', keep current path?";
 
 	    if (!this.promptBoolean(prompt)) {
-		this.promptFilePath();
+		this.promptForFilePath();
 	    }
 	}
 
-	System.out.println("filePath = " + this.getFilePath());
+	/* Make sure file exists */
+	File inputFile = new File(this.getFilePath());
+	if (!inputFile.exists()) {
+	    System.out.println("File '" + this.getFilePath() + "' does not exist.");
+	    return;
+	}
 
+	/* Open file, load into this.surveyActive */
 	try {
 	    FileInputStream file = new FileInputStream(this.getFilePath());
 	    ObjectInputStream in = new ObjectInputStream(file);
 
+	    /* Watch out for ClassNotFoundException */
 	    try {
 		if (this.isSurveyActiveGradable()) {
 		    loadedSurvey = (Test) in.readObject();
@@ -183,14 +202,7 @@ public class SurveyManager {
 	this.setSurveyActive(loadedSurvey);
 
     }
-
-    /**
-     * 
-     * @return
-     */
-    public void enumerate() {
-    }
-
+    
     public String getFilePath() {
 	return filePath;
     }
@@ -206,6 +218,11 @@ public class SurveyManager {
     public void setSurveyActive(Survey surveyActive) {
 	this.surveyActive = surveyActive;
 
+	/* If new surveyActive is a Test, update isSurveyActiveGradable
+	 * to true. Otherwise update to false. This is used to allow for ease
+	 * of checking whether the active work item is a Survey or a Test
+	 * without using 'instanceof'.
+	 */
 	if (surveyActive instanceof Test) {
 	    this.isSurveyActiveGradable = true;
 	} else {

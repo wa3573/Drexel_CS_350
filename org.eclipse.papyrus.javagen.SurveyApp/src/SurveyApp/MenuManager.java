@@ -5,22 +5,25 @@
 package SurveyApp;
 
 import java.util.*;
-//import java.util.regex.Pattern;
-//
-//import SurveyApp.SurveyManager;
 
 /************************************************************/
+
 /**
- * 
+ * MenuManager is a singleton class. When it is needed by other classes, it is
+ * obtained by the method MenuManager.getInstance(), this allows the manager to
+ * have singular control over the display of menus to the terminal, and to
+ * direct the flow of the user interface.
  */
 public class MenuManager {
-    /**
-     * 
-     */
 
     private static MenuManager instance = null;
-    private ArrayList<Menu> menus;
 
+    /*
+     * Since menus are purely functional and do not have memory past there life-span
+     * the menu manager needs only keep track of which menu is currently active. The
+     * survey manager is responsible for holding active surveys to be accessed by
+     * separate menus.
+     */
     private Menu menuActive;
     private Scanner reader = new Scanner(System.in);
 
@@ -29,17 +32,12 @@ public class MenuManager {
      */
     private MenuManager() {
 	Menu menuHome = new MenuHome();
-	ArrayList<Menu> menus = new ArrayList<Menu>();
-
-	menus.add(menuHome);
-
-	this.setMenus(menus);
 	this.setMenuActive(menuHome);
 	System.out.println("\n" + this.getMenuActive());
 
 	/*
 	 * Continue to acquire and display new menus until the next active menu is null,
-	 * at which point the program is exited
+	 * at which point the program is exited.
 	 */
 	while (this.getMenuActive() != null) {
 	    this.getNewMenu();
@@ -59,34 +57,6 @@ public class MenuManager {
 	}
 
 	return instance;
-    }
-
-    /**
-     * 
-     * @param menus
-     * @return
-     */
-    public void setMenus(ArrayList<Menu> menus) {
-	this.menus = menus;
-    }
-
-    public ArrayList<Menu> getMenus() {
-	return menus;
-    }
-
-    /**
-     * 
-     * @param index
-     * @return
-     */
-    public void displayMenu(int index) {
-	System.out.print(this.getMenus().get(index));
-	System.out.println("\nPlease select a choice:");
-    }
-
-    public void displayMenuActive() {
-	System.out.print(this.menuActive);
-	System.out.println();
     }
 
     public Menu getMenuActive() {
@@ -113,18 +83,21 @@ public class MenuManager {
 	return result;
     }
 
+    /*
+     * Prompt user and only accept integers within the range of selections present.
+     */
     private int promptForMenuInteger(String prompt) {
 	int result = this.promptForInteger(prompt);
 	int numChoices = this.menuActive.getNumberChoices();
 
 	while (result < 1 | result > numChoices) {
-	    result = this.promptForInteger("Please enter a valid choice:");
+	    result = this.promptForInteger("Please enter a valid selection:");
 	}
 
 	return result;
     }
 
-    public void getNewMenu() {
+    private void getNewMenu() {
 	int userResponse = this.promptForMenuInteger("Please select a choice:");
 	this.menuActive = this.menuActive.selectChoice(userResponse);
     }

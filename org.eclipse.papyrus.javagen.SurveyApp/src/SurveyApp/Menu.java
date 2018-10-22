@@ -5,7 +5,7 @@
 package SurveyApp;
 
 import java.util.*;
-import java.util.regex.Pattern;
+//import java.util.regex.Pattern;
 
 /************************************************************/
 /**
@@ -25,33 +25,66 @@ public abstract class Menu {
     public static String DIVIDER = "====================" + "====================" + "===================="
 	    + "====================";
 
-    /**
-     * 
+    /* Menu constructors handle adding their choices, obtaining the
+     * surveyManager, and creating private instances of needed variables
      */
     public Menu() {
+
     }
 
-    public Menu(ArrayList<MenuChoice> choices) {
-	this.choices = choices;
-	this.numberChoices = choices.size();
-    }
-
-    /**
-     * 
-     * @return
-     * @param output
-     */
-    public void display(Output output) {
-    }
+    /* TODO: this constructor may be unneeded */
+//    public Menu(ArrayList<MenuChoice> choices) {
+//	this.choices = choices;
+//	this.numberChoices = choices.size();
+//    }
 
     /**
      * 
      * @param index
      * @return
      */
-    public SurveyApp.Menu selectChoice(int index) {
-	/* Overridden by child classes */
+
+    /* Overridden by child classes, this controls the basic functionality
+     * of the individual menu, and returns a menu which directs the menu
+     * manager to the next menu to display */
+    public Menu selectChoice(int index) {
+
 	return null;
+    }
+    
+    /* Most child classes override this to provide stylized output of their
+     * menu choices, as well as a header stating the name of the menu.
+     */
+    public String toString() {
+
+	String out = "";
+
+	for (int i = 0; i < this.getNumberChoices(); i++) {
+	    MenuChoice thisChoice = this.getChoices().get(i);
+	    out += thisChoice.getIndex() + ") " + thisChoice.getValue() + "\n";
+	}
+
+	return out;
+    }
+
+    /* Virtually all child classes utilize a boolean prompt for user
+     * verification. This displays a prompt and returns a boolean based
+     * on the user's response.
+     */
+    protected boolean promptBoolean(String prompt) {
+	System.out.print(prompt + " ('y' or 'n'): ");
+	char userResponse = reader.nextLine().charAt(0);
+
+	while (userResponse != 'y' && userResponse != 'n') {
+	    System.out.print("Please enter a valid choice.\n" + prompt + " ('y' or 'n'): ");
+	    userResponse = reader.nextLine().charAt(0);
+	}
+
+	if (userResponse == 'y') {
+	    return true;
+	} else {
+	    return false;
+	}
     }
 
     /**
@@ -78,32 +111,5 @@ public abstract class Menu {
      */
     public int getNumberChoices() {
 	return this.numberChoices;
-    }
-
-    public String toString() {
-	String out = "";
-
-	for (int i = 0; i < this.getNumberChoices(); i++) {
-	    MenuChoice thisChoice = this.getChoices().get(i);
-	    out += thisChoice.getIndex() + ") " + thisChoice.getValue() + "\n";
-	}
-
-	return out;
-    }
-
-    protected boolean promptBoolean(String prompt) {
-	System.out.print(prompt + " ('y' or 'n'): ");
-	char userResponse = reader.nextLine().charAt(0);
-
-	while (userResponse != 'y' && userResponse != 'n') {
-	    System.out.print("Please enter a valid choice.\n" + prompt + " ('y' or 'n'): ");
-	    userResponse = reader.nextLine().charAt(0);
-	}
-
-	if (userResponse == 'y') {
-	    return true;
-	} else {
-	    return false;
-	}
     }
 };

@@ -4,21 +4,27 @@
 
 package SurveyApp;
 
+import java.util.ArrayList;
+
 import SurveyApp.MultipleChoice;
 import SurveyApp.Output;
 
+
 /************************************************************/
-/**
- * 
- */
+
 public class TrueFalse extends MultipleChoice {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -4970733003633443256L;
 
     public TrueFalse() {
+	ArrayList<CorrectResponse> responsesPossible = new ArrayList<CorrectResponse>();
+	CorrectResponse responseTrue = new CorrectResponseBoolean(true);
+	CorrectResponse responseFalse = new CorrectResponseBoolean(false);
+	
+	responsesPossible.add(responseTrue);
+	responsesPossible.add(responseFalse);
+	
+	this.setResponsesPossible(responsesPossible);
     }
 
     public void display(Output output) {
@@ -38,6 +44,8 @@ public class TrueFalse extends MultipleChoice {
 
 	String str = "[True/False]\t\t" + this.getPrompt() + " : " + currentAnswer;
 
+	str += "\n\t(Possible answers) " + this.getResponsesPossible();
+	
 	if (this.getResponsesSystem() != null) {
 	    CorrectResponse correctAnswer = this.getResponsesSystem().get(0);
 	    str += "\n\t(Correct answer) " + correctAnswer;
