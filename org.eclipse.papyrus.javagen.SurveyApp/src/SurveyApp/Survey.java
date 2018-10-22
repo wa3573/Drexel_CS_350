@@ -14,136 +14,135 @@ import SurveyApp.Question;
  * 
  */
 public class Survey implements java.io.Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2996912927221626336L;
-	/**
-	 * 
-	 */
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -2996912927221626336L;
+    /**
+     * 
+     */
 
-	private String author;
-	/**
-	 * 
-	 */
-	private String title;
-	/**
-	 * 
-	 */
-	private ArrayList<Question> questions;
-	/**
-	 * 
-	 */
-	private int numberQuestions;
-	/**
-	 * 
-	 */
-	private Output output;
+    private String author;
+    /**
+     * 
+     */
+    private String title;
+    /**
+     * 
+     */
+    private ArrayList<Question> questions;
+    /**
+     * 
+     */
+    private int numberQuestions;
+    /**
+     * 
+     */
+//	private Output output;
 
-	/**
-	 * 
-	 * @param author 
-	 * @param title 
-	 * @param questions 
-	 */
-	public Survey() {
-		this.questions = new ArrayList<Question>();
+    /**
+     * 
+     * @param author
+     * @param title
+     * @param questions
+     */
+    public Survey() {
+	this.questions = new ArrayList<Question>();
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public void addQuestion(Question question) {
+	this.questions.add(question);
+    }
+
+    /**
+     * 
+     * @return
+     * @param index
+     */
+    public void replaceQuestion(int index, Question question) {
+	this.questions.set(index, question);
+    }
+
+    /**
+     * 
+     * @param index
+     * @return
+     */
+    public void removeQuestion(int index) {
+	this.questions.remove(index);
+    }
+
+    /**
+     * 
+     * @return
+     * @param index
+     */
+    public Question getQuestion(int index) {
+	return this.questions.get(index);
+    }
+
+    /**
+     * 
+     * @return
+     * @param output
+     */
+    public void display(Output output) {
+	for (int i = 0; i < this.getQuestions().size(); i++) {
+	    String line = (i + 1) + ") " + this.getQuestion(i) + "\n";
+
+	    output.displayString(line);
+	}
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public void fill() {
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public void tabulate() {
+    }
+
+    public String getAuthor() {
+	return author;
+    }
+
+    public void setAuthor(String author) {
+	this.author = author;
+    }
+
+    public String getTitle() {
+	return title;
+    }
+
+    public void setTitle(String title) {
+	this.title = title;
+    }
+
+    public ArrayList<Question> getQuestions() {
+	return questions;
+    }
+
+    public void setQuestions(ArrayList<Question> questions) {
+	this.questions = questions;
+    }
+
+    public String toString() {
+	String out = "";
+	for (int i = 0; i < this.getQuestions().size(); i++) {
+	    out += (i + 1) + ") " + this.getQuestion(i) + "\n";
+
 	}
 
-	/**
-	 * 
-	 * @return 
-	 */
-	public void addQuestion(Question question) {
-		this.questions.add(question);
-	}
-
-	/**
-	 * 
-	 * @return 
-	 * @param index 
-	 */
-	public void replaceQuestion(int index, Question question) {
-		this.questions.set(index, question);
-	}
-
-	/**
-	 * 
-	 * @param index 
-	 * @return 
-	 */
-	public void removeQuestion(int index) {
-		this.questions.remove(index);
-	}
-
-	/**
-	 * 
-	 * @return 
-	 * @param index 
-	 */
-	public Question getQuestion(int index) {
-		return this.questions.get(index);
-	}
-
-	/**
-	 * 
-	 * @return 
-	 * @param output 
-	 */
-	public void display(Output output) {
-		for (int i = 0; i < this.getQuestions().size(); i++) {
-			String line = (i + 1) + ") " + this.getQuestion(i) + "\n";
-			
-			output.displayString(line);
-		}
-	}
-
-	/**
-	 * 
-	 * @return 
-	 */
-	public void fill() {
-	}
-
-	/**
-	 * 
-	 * @return 
-	 */
-	public void tabulate() {
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public ArrayList<Question> getQuestions() {
-		return questions;
-	}
-
-	public void setQuestions(ArrayList<Question> questions) {
-		this.questions = questions;
-	}
-	
-	public String toString() {
-		String out = "";
-		for (int i = 0; i < this.getQuestions().size(); i++) {
-			out += (i + 1) + ") " + this.getQuestion(i) + "\n";
-			
-			
-		}
-		
-		return out;
-	}
+	return out;
+    }
 };

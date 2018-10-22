@@ -5,84 +5,105 @@
 package SurveyApp;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 /************************************************************/
 /**
  * 
  */
 public abstract class Menu {
-	/**
-	 * 
-	 */
-	private ArrayList<MenuChoice> choices;
-	/**
-	 * 
-	 */
-	private int numberChoices;
+    /**
+     * 
+     */
+    private ArrayList<MenuChoice> choices;
+    /**
+     * 
+     */
+    private int numberChoices;
+    private Scanner reader = new Scanner(System.in);
+//	private static final Pattern ALPHANUMERIC = Pattern.compile("[^a-zA-Z0-9]");
+    public static String DIVIDER = "====================" + "====================" + "===================="
+	    + "====================";
 
-	/**
-	 * 
-	 */
-	public Menu() {
+    /**
+     * 
+     */
+    public Menu() {
+    }
+
+    public Menu(ArrayList<MenuChoice> choices) {
+	this.choices = choices;
+	this.numberChoices = choices.size();
+    }
+
+    /**
+     * 
+     * @return
+     * @param output
+     */
+    public void display(Output output) {
+    }
+
+    /**
+     * 
+     * @param index
+     * @return
+     */
+    public SurveyApp.Menu selectChoice(int index) {
+	/* Overridden by child classes */
+	return null;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public ArrayList<MenuChoice> getChoices() {
+	return this.choices;
+    }
+
+    /**
+     * 
+     * @param choices
+     * @return
+     */
+    public void setChoices(ArrayList<MenuChoice> choices) {
+	this.choices = choices;
+	this.numberChoices = choices.size();
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public int getNumberChoices() {
+	return this.numberChoices;
+    }
+
+    public String toString() {
+	String out = "";
+
+	for (int i = 0; i < this.getNumberChoices(); i++) {
+	    MenuChoice thisChoice = this.getChoices().get(i);
+	    out += thisChoice.getIndex() + ") " + thisChoice.getValue() + "\n";
 	}
 
-	public Menu(ArrayList<MenuChoice> choices) {
-		this.choices = choices;
-		this.numberChoices = choices.size();
-	}
-	
-	/**
-	 * 
-	 * @return 
-	 * @param output 
-	 */
-	public void display(Output output) {
+	return out;
+    }
+
+    protected boolean promptBoolean(String prompt) {
+	System.out.print(prompt + " ('y' or 'n'): ");
+	char userResponse = reader.nextLine().charAt(0);
+
+	while (userResponse != 'y' && userResponse != 'n') {
+	    System.out.print("Please enter a valid choice.\n" + prompt + " ('y' or 'n'): ");
+	    userResponse = reader.nextLine().charAt(0);
 	}
 
-	/**
-	 * 
-	 * @param index 
-	 * @return 
-	 */
-	public SurveyApp.Menu selectChoice(int index) {
-		/* Overridden by child classes */
-		return null;
+	if (userResponse == 'y') {
+	    return true;
+	} else {
+	    return false;
 	}
-
-	/**
-	 * 
-	 * @return 
-	 */
-	public ArrayList<MenuChoice> getChoices() {
-		return this.choices;
-	}
-
-	/**
-	 * 
-	 * @param choices 
-	 * @return 
-	 */
-	public void setChoices(ArrayList<MenuChoice> choices) {
-		this.choices = choices;
-		this.numberChoices = choices.size();
-	}
-
-	/**
-	 * 
-	 * @return 
-	 */
-	public int getNumberChoices() {
-		return this.numberChoices;
-	}
-	
-	public String toString() {
-		String out = "";
-		
-		for (int i = 0; i < this.getNumberChoices(); i++) {
-			MenuChoice thisChoice = this.getChoices().get(i);
-			out += thisChoice.getIndex() + ") " + thisChoice.getValue() + "\n";
-		}
-		
-		return out;
-	}
+    }
 };

@@ -13,94 +13,98 @@ import SurveyApp.Prompt;
 /**
  * 
  */
-public abstract class Question {
-	/**
-	 * 
-	 */
-	private Prompt prompt;
-	/**
-	 * 
-	 */
-	private ArrayList<CorrectResponse> responsesUser;
-	/**
-	 * 
-	 */
-	private int numberResponses = 1;
+public abstract class Question implements java.io.Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 3960269649400933317L;
+    /**
+     * 
+     */
+    private Prompt prompt;
+    /**
+     * 
+     */
+    private ArrayList<CorrectResponse> responsesUser;
+    /**
+     * 
+     */
+    private int numberResponses = 1;
 
-	/**
-	 * 
-	 */
-	public Question() {
-		this.responsesUser = new ArrayList<CorrectResponse>();
-	}
+    /**
+     * 
+     */
+    public Question() {
+	this.responsesUser = new ArrayList<CorrectResponse>();
+    }
 
-	/**
-	 * 
-	 * @return 
-	 * @param prompt 
-	 */
-	public void setPrompt(Prompt prompt) {
-		this.prompt = prompt;
-	}
+    /**
+     * 
+     * @return
+     * @param prompt
+     */
+    public void setPrompt(Prompt prompt) {
+	this.prompt = prompt;
+    }
 
-	/**
-	 * 
-	 * @return 
-	 */
-	public Prompt getPrompt() {
-		return this.prompt;
-	}
+    /**
+     * 
+     * @return
+     */
+    public Prompt getPrompt() {
+	return this.prompt;
+    }
 
-	/**
-	 * 
-	 * @return 
-	 */
-	public int getNumberResponsesUser() {
-		return this.numberResponses;
-	}
+    /**
+     * 
+     * @return
+     */
+    public int getNumberResponsesUser() {
+	return this.numberResponses;
+    }
 
-	/**
-	 * 
-	 * @return 
-	 * @param index 
-	 * @param response 
-	 */
-	public void setResponseUser(int index, CorrectResponse response) {
-		this.responsesUser.set(index, response);
-	}
+    /**
+     * 
+     * @return
+     * @param index
+     * @param response
+     */
+    public void setResponseUser(int index, CorrectResponse response) {
+	this.responsesUser.set(index, response);
+    }
 
-	/**
-	 * 
-	 * @return 
-	 * @param index 
-	 */
-	public CorrectResponse getResponseUser(int index) {
-		return this.responsesUser.get(index);
-	}
+    /**
+     * 
+     * @return
+     * @param index
+     */
+    public CorrectResponse getResponseUser(int index) {
+	return this.responsesUser.get(index);
+    }
 
-	/**
-	 * 
-	 * @return 
-	 * @param responses 
-	 */
-	public void setResponsesUser(ArrayList<CorrectResponse> responses) {
-		this.responsesUser = responses;
-	}
+    /**
+     * 
+     * @return
+     * @param responses
+     */
+    public void setResponsesUser(ArrayList<CorrectResponse> responses) {
+	this.responsesUser = responses;
+    }
 
-	/**
-	 * 
-	 * @return 
-	 */
-	public ArrayList<CorrectResponse> getResponsesUser() {
-		return this.responsesUser;
-	}
+    /**
+     * 
+     * @return
+     */
+    public ArrayList<CorrectResponse> getResponsesUser() {
+	return this.responsesUser;
+    }
 
-	/**
-	 * 
-	 * @return 
-	 * @param output 
-	 */
-	public void display(Output output) {
-		output.displayString(this.prompt.toString());
-	}
+    /**
+     * 
+     * @return
+     * @param output
+     */
+    public void display(Output output) {
+	output.displayString(this.prompt.toString());
+    }
 };

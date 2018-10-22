@@ -12,38 +12,38 @@ import SurveyApp.Output;
  * 
  */
 public class MenuPrompt extends Menu {
-	/**
-	 * 
-	 */
-	private String title;
-	/**
-	 * 
-	 */
-	private String author;
-	/**
-	 * 
-	 */
-	private String filePath;
+    /**
+     * 
+     */
+    private String title;
+    /**
+     * 
+     */
+    private String author;
+    /**
+     * 
+     */
+    private String filePath;
 
-	/**
-	 * 
-	 */
-	public MenuPrompt() {
-	}
+    /**
+     * 
+     */
+    public MenuPrompt() {
+    }
 
-	/**
-	 * 
-	 * @param filePath 
-	 * @return 
-	 */
-	public void load(String filePath) {
-	}
+    /**
+     * 
+     * @param filePath
+     * @return
+     */
+    public void load(String filePath) {
+    }
 
-	/**
-	 * 
-	 * @return 
-	 * @param output 
-	 */
-	public void display(Output output) {
-	}
+    /**
+     * 
+     * @return
+     * @param output
+     */
+    public void display(Output output) {
+    }
 };

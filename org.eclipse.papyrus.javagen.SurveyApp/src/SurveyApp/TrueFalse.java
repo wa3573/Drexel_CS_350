@@ -13,27 +13,36 @@ import SurveyApp.Output;
  */
 public class TrueFalse extends MultipleChoice {
 
-	public TrueFalse() {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -4970733003633443256L;
+
+    public TrueFalse() {
+    }
+
+    public void display(Output output) {
+	String line = "[T/F]\t" + this.getPrompt().toString();
+
+	output.displayString(line);
+    }
+
+    public String toString() {
+	String currentAnswer;
+
+	if (this.getResponsesUser().isEmpty()) {
+	    currentAnswer = "";
+	} else {
+	    currentAnswer = this.getResponsesUser().get(0).toString();
 	}
-	
-	public void display(Output output) {
-		String line = "[T/F]\t" + this.getPrompt().toString();
-		
-		output.displayString(line);
+
+	String str = "[True/False]\t\t" + this.getPrompt() + " : " + currentAnswer;
+
+	if (this.getResponsesSystem() != null) {
+	    CorrectResponse correctAnswer = this.getResponsesSystem().get(0);
+	    str += "\n\t(Correct answer) " + correctAnswer;
 	}
-	
-	public String toString() {
-		String currentAnswer;
-		
-		if (this.getResponsesUser().isEmpty()) {
-			currentAnswer = "";
-		} else {
-			currentAnswer = this.getResponsesUser().get(0).toString();
-		}
-		
-		String line = "[T/F]\t" + this.getPrompt().toString() + " : "
-				+ currentAnswer;
-		
-		return line;
-	}
+
+	return str;
+    }
 };

@@ -11,9 +11,34 @@ import SurveyApp.Matching;
  * 
  */
 public class Ranking extends Matching {
-	/**
-	 * 
-	 */
-	public void Ranking() {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1343910620528243717L;
+
+    /**
+     * 
+     */
+    public Ranking() {
+    }
+
+    public String toString() {
+	String currentAnswer;
+
+	if (this.getResponsesUser().isEmpty()) {
+	    currentAnswer = "";
+	} else {
+	    currentAnswer = this.getResponsesUser().get(0).toString();
 	}
+
+	String str = "[Ranking]\t\t" + this.getPrompt() + " : " + currentAnswer;
+
+	str += "\n\t(Possible choices) " + this.getResponsesLeftSystem();
+
+	if (this.getResponsesRight() != null) {
+	    str += "\n\t(Correct order of choices) " + this.getResponsesRight();
+	}
+
+	return str;
+    }
 };

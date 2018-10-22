@@ -8,81 +8,84 @@ import java.util.*;
 import SurveyApp.CorrectResponse;
 import SurveyApp.Survey;
 
-
 /************************************************************/
 /**
  * 
  */
 public class Test extends Survey {
-	/**
-	 * 
-	 */
-	private int grade;
-	/**
-	 * 
-	 */
-	private ArrayList<CorrectResponse> correctAnswers;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -4569527932381470972L;
+    /**
+     * 
+     */
+    private int grade;
+    /**
+     * 
+     */
+    private ArrayList<CorrectResponse> correctAnswers;
 
-	/**
-	 * 
-	 */
-	public Test() {
+    /**
+     * 
+     */
+    public Test() {
+    }
+
+    /**
+     * 
+     * @param index
+     * @param answer
+     * @return
+     */
+    public void addCorrectAnswer(int index, CorrectResponse answer) {
+    }
+
+    /**
+     * 
+     * @param answer
+     * @return
+     */
+    public void enterAnswer(int index, CorrectResponse answer) {
+    }
+
+    /**
+     * 
+     * @param answers
+     * @return
+     */
+    public void enterAnswers(ArrayList<CorrectResponse> answers) {
+    }
+
+    /**
+     * 
+     * @param index
+     * @param answer
+     * @return
+     */
+    public void editAnswer(int index, CorrectResponse answer) {
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public int getGrade() {
+	int denominator = this.correctAnswers.size();
+	int numerator = 0;
+
+	for (int i = 0; i < this.correctAnswers.size(); i++) {
+	    Question currentQuestion = this.getQuestions().get(i);
+	    ArrayList<CorrectResponse> userResponses = currentQuestion.getResponsesUser();
+
 	}
 
-	/**
-	 * 
-	 * @param index 
-	 * @param answer 
-	 * @return 
-	 */
-	public void addCorrectAnswer(int index, CorrectResponse answer) {
-	}
+	return 0;
+    }
 
-	/**
-	 * 
-	 * @param answer 
-	 * @return 
-	 */
-	public void enterAnswer(int index, CorrectResponse answer) {
-	}
-
-	/**
-	 * 
-	 * @param answers 
-	 * @return 
-	 */
-	public void enterAnswers(ArrayList<CorrectResponse> answers) {
-	}
-
-	/**
-	 * 
-	 * @param index 
-	 * @param answer 
-	 * @return 
-	 */
-	public void editAnswer(int index, CorrectResponse answer) {
-	}
-
-	/**
-	 * 
-	 * @return 
-	 */
-	public int getGrade() {
-		int denominator = this.correctAnswers.size();
-		int numerator = 0;
-		
-		for (int i = 0; i < this.correctAnswers.size(); i++) {
-			Question currentQuestion = this.getQuestions().get(i);
-			ArrayList<CorrectResponse> userResponses = currentQuestion.getResponsesUser();
-			
-		}
-		
-		return 0;
-	}
-
-	/**
-	 * 
-	 * @param index 
-	 * @return 
-	 */
+    /**
+     * 
+     * @param index
+     * @return
+     */
 };

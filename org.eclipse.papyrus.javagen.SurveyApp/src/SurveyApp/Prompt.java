@@ -10,16 +10,21 @@ import SurveyApp.Output;
 /**
  * 
  */
-public abstract class Prompt {
-	/**
-	 * 
-	 * @return 
-	 * @param output 
-	 */
-	public void display(Output output) {
-	}
-	
-	public String toString() {
-		return new String("");
-	}
+public abstract class Prompt implements java.io.Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 4768135925705676447L;
+
+    /**
+     * 
+     * @return
+     * @param output
+     */
+    public void display(Output output) {
+    }
+
+    public String toString() {
+	return new String("");
+    }
 };

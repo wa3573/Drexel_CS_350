@@ -11,38 +11,37 @@ import SurveyApp.Output;
  * 
  */
 public class OutputTerminal extends Output {
-	private static OutputTerminal instance = null;
-	
-	/**
-	 * 
-	 * @param output 
-	 * @return 
-	 */
-	public void displayInteger(int output) {
-		System.out.print(output);
+    private static OutputTerminal instance = null;
+
+    /**
+     * 
+     * @param output
+     * @return
+     */
+    public void displayInteger(int output) {
+	System.out.print(output);
+    }
+
+    /**
+     * 
+     * @param output
+     * @return
+     */
+    public void displayString(String output) {
+	System.out.print(output);
+    }
+
+    /**
+     * 
+     */
+    private OutputTerminal() {
+    }
+
+    public static OutputTerminal getInstance() {
+	if (instance == null) {
+	    instance = new OutputTerminal();
 	}
 
-	/**
-	 * 
-	 * @param output 
-	 * @return 
-	 */
-	public void displayString(String output) {
-		System.out.print(output);
-	}
-
-	/**
-	 * 
-	 */
-	private OutputTerminal() {
-	}
-	
-	public static OutputTerminal getInstance()
-	{
-		if (instance == null) {
-			instance = new OutputTerminal();
-		}
-		
-		return instance;
-	}
+	return instance;
+    }
 };

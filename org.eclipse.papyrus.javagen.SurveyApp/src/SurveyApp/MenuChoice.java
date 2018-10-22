@@ -9,59 +9,59 @@ package SurveyApp;
  * 
  */
 public class MenuChoice {
-	/**
-	 * 
-	 */
-	private String value;
-	/**
-	 * 
-	 */
-	private int index;
+    /**
+     * 
+     */
+    private String value;
+    /**
+     * 
+     */
+    private int index;
 
-	/**
-	 * 
-	 */
-	public MenuChoice() {
-		this.value = null;
-		this.index = 0;
-	}
+    /**
+     * 
+     */
+    public MenuChoice() {
+	this.value = null;
+	this.index = 0;
+    }
 
-	public MenuChoice(String value, int index) {
-		this.value = value;
-		this.index = index;
-	}
-	
-	/**
-	 * 
-	 * @param value 
-	 * @return 
-	 */
-	public void setValue(String value) {
-		this.value = value;
-	}
+    public MenuChoice(String value, int index) {
+	this.value = value;
+	this.index = index;
+    }
 
-	/**
-	 * 
-	 * @param index 
-	 * @return 
-	 */
-	public void setIndex(int index) {
-		this.index = index;
-	}
+    /**
+     * 
+     * @param value
+     * @return
+     */
+    public void setValue(String value) {
+	this.value = value;
+    }
 
-	/**
-	 * 
-	 * @return 
-	 */
-	public String getValue() {
-		return this.value;
-	}
+    /**
+     * 
+     * @param index
+     * @return
+     */
+    public void setIndex(int index) {
+	this.index = index;
+    }
 
-	/**
-	 * 
-	 * @return 
-	 */
-	public int getIndex() {
-		return this.index;
-	}
+    /**
+     * 
+     * @return
+     */
+    public String getValue() {
+	return this.value;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public int getIndex() {
+	return this.index;
+    }
 };

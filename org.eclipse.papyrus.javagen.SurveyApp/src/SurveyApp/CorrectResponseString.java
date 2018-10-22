@@ -11,46 +11,54 @@ import SurveyApp.CorrectResponse;
  * 
  */
 public class CorrectResponseString extends CorrectResponse {
-	/**
-	 * 
-	 */
-	private String response;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -2697653221305488312L;
+    /**
+     * 
+     */
+    private String response;
 
-	/**
-	 * 
-	 */
-	public CorrectResponseString() {
-	}
-	
-	public CorrectResponseString(String response) {
-		this.response = response;
-	}
+    /**
+     * 
+     */
+    public CorrectResponseString() {
+    }
 
-	/**
-	 * 
-	 * @return 
-	 */
-	public String getResponse() {
-		return this.response;
-	}
+    public CorrectResponseString(String response) {
+	this.response = response;
+    }
 
-	/**
-	 * 
-	 * @param response 
-	 * @return 
-	 */
-	public void setResponse(String response) {
-		this.response = response;
-	}
+    /**
+     * 
+     * @return
+     */
+    public String getResponse() {
+	return this.response;
+    }
 
-	/**
-	 * 
-	 * @param other 
-	 * @return 
-	 */
-	public int compareTo(CorrectResponseString other) {
-		String thisValue = new String(this.response);
-		
-		return thisValue.compareTo(other.response);
-	}
+    /**
+     * 
+     * @param response
+     * @return
+     */
+    public void setResponse(String response) {
+	this.response = response;
+    }
+
+    /**
+     * 
+     * @param other
+     * @return
+     */
+    public int compareTo(CorrectResponseString other) {
+	String thisValue = new String(this.response);
+
+	return thisValue.compareTo(other.response);
+    }
+
+    public String toString() {
+	return this.response;
+    }
 };

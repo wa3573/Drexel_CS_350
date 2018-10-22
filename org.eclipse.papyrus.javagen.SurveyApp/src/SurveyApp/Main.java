@@ -4,82 +4,55 @@
 
 package SurveyApp;
 
-import java.util.*;
+//import java.util.*;
 import SurveyApp.MenuManager;
 import SurveyApp.SurveyManager;
-import SurveyApp.*;
+//import SurveyApp.*;
 
 /************************************************************/
 /**
  * 
  */
 public class Main {
-	public static String DIVIDER = "====================" +
-			"====================" + "====================";
-	
-	public static String APPLICATION_TITLE = "Survey and Test Utility v0.1";
-	public static String AUTHOR_NAME = "Bill Anderson";
-	
-	public static void printDivider() {
-		System.out.println(DIVIDER);
-	}
-	
-	public static void printHeader() {
-		printDivider();
-		System.out.println("\t" +APPLICATION_TITLE);
-		System.out.println("\tBy: " + AUTHOR_NAME);
-		printDivider();
-		System.out.println();	
-	}
-	/**
-	 * 
-	 */
-	private static SurveyManager surveyManager;
-	/**
-	 * 
-	 */
-	private static MenuManager menuManager;
+    /* Header divider is (80 * '~') */
+    public static String DIVIDER_HEADER = "~~~~~~~~~~~~~~~~~~~~" + "~~~~~~~~~~~~~~~~~~~~" + "~~~~~~~~~~~~~~~~~~~~"
+	    + "~~~~~~~~~~~~~~~~~~~~";
 
-	/**
-	 * 
-	 * @param args 
-	 * @return 
-	 */
-	public static void main(String [] args) {
-		printHeader();
-		
-		Output mainOutput = OutputTerminal.getInstance();
-		menuManager = new MenuManager();
-		surveyManager = new SurveyManager();
-		
-//		Survey testSurvey = new Survey();
-//		TrueFalse testQuestion1 = new TrueFalse();
-//		Prompt testPrompt1 = new PromptString("The sky is blue.");
-//		CorrectResponseBoolean testAnswer1 = new CorrectResponseBoolean(true);
-//		ArrayList<CorrectResponse> testAnswers1 = new ArrayList<CorrectResponse>();
-//		testAnswers1.add(testAnswer1);
-//		
-//		testQuestion1.setPrompt(testPrompt1);
-//		testQuestion1.setResponsesSystem(testAnswers1);
-//		testQuestion1.display(mainOutput);
-//		
-//		CorrectResponseBoolean testResponse1 = new CorrectResponseBoolean(true);
-//		ArrayList<CorrectResponse> testResponses1 = new ArrayList<CorrectResponse>();
-//		
-//		testResponses1.add(testAnswer1);
-//		
-//		testQuestion1.setResponsesUser(testResponses1);
-//		
-//		System.out.println("\n" + testQuestion1.isCorrect());
-//		
-//		testResponse1 = new CorrectResponseBoolean(false);
-//		testResponses1 = new ArrayList<CorrectResponse>();
-//		
-//		testQuestion1.setResponsesUser(testResponses1);
-//		
-//		System.out.println("\n" + testQuestion1.isCorrect());
-//		
-//		testSurvey.addQuestion(testQuestion1);
-//		testSurvey.display(mainOutput);
-	}
+//	/* Divider is (80 * '=') */
+//	public static String DIVIDER = "===================="
+//			+ "====================" + "===================="
+//			+ "====================";
+
+    public static String APPLICATION_TITLE = "Survey and Test Utility v0.15";
+    public static String AUTHOR_NAME = "William J. Anderson";
+
+    public static void printHeaderDivider() {
+	System.out.println(DIVIDER_HEADER);
+    }
+
+    public static void printHeader() {
+	printHeaderDivider();
+	System.out.println("\t\t\t" + APPLICATION_TITLE);
+	System.out.println("\t\t\tBy: " + AUTHOR_NAME);
+	printHeaderDivider();
+    }
+
+    @SuppressWarnings("unused")
+    private static SurveyManager surveyManager;
+
+    @SuppressWarnings("unused")
+    private static MenuManager menuManager;
+
+    /**
+     * 
+     * @param args
+     * @return
+     */
+    public static void main(String[] args) {
+	printHeader();
+
+//		Output mainOutput = OutputTerminal.getInstance();
+	menuManager = MenuManager.getInstance();
+	surveyManager = SurveyManager.getInstance();
+    }
 };

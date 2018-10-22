@@ -11,52 +11,56 @@ import SurveyApp.CorrectResponse;
  * 
  */
 public class CorrectResponseBoolean extends CorrectResponse {
-	/**
-	 * 
-	 */
-	public boolean response;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -6145451172944491906L;
+    /**
+     * 
+     */
+    public boolean response;
 
-	/**
-	 * 
-	 * @param response 
-	 * @return 
-	 */
-	public void setResponse(boolean response) {
-		this.response = response;
-	}
+    /**
+     * 
+     * @param response
+     * @return
+     */
+    public void setResponse(boolean response) {
+	this.response = response;
+    }
 
-	/**
-	 * 
-	 */
-	public CorrectResponseBoolean() {
-	}
-	
-	public CorrectResponseBoolean(boolean response) {
-		this.response = response;
-	}
+    /**
+     * 
+     */
+    public CorrectResponseBoolean() {
+    }
 
-	/**
-	 * 
-	 * @return 
-	 */
-	public boolean getResponse() {
-		return this.response;
-	}
+    public CorrectResponseBoolean(boolean response) {
+	this.response = response;
+    }
 
-	/**
-	 * 
-	 * @param other 
-	 * @return 
-	 */
-	public int compareTo(CorrectResponseBoolean other) {
-		Boolean thisValue = new Boolean(this.response);
-		
-		return thisValue.compareTo(other.response);
-	}
-	
-	public String toString() {
-		Boolean thisValue = new Boolean(this.getResponse());
-		
-		return thisValue.toString();
-	}
+    /**
+     * 
+     * @return
+     */
+    public boolean getResponse() {
+	return this.response;
+    }
+
+    /**
+     * 
+     * @param other
+     * @return
+     */
+    public int compareTo(CorrectResponseBoolean other) {
+	Boolean thisValue = new Boolean(this.response);
+
+	return thisValue.compareTo(other.response);
+    }
+
+    public String toString() {
+	Boolean thisValue = new Boolean(this.getResponse());
+
+	return thisValue.toString();
+    }
 };

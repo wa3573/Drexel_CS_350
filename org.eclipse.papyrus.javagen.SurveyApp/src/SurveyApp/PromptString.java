@@ -12,32 +12,36 @@ import SurveyApp.Output;
  * 
  */
 public class PromptString extends Prompt {
-	/**
-	 * 
-	 */
-	private String prompt;
-	
-	public PromptString() {
-		
-	}
-	
-	public PromptString(String prompt) {
-		this.prompt = prompt;
-	}
-	
-	public void display(Output output) {
-		output.displayString(this.prompt);
-	}
-	
-	public String toString() {
-		return this.prompt;
-	}
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -1862130368893315762L;
+    /**
+     * 
+     */
+    private String prompt;
 
-	public String getPrompt() {
-		return this.prompt;
-	}
+    public PromptString() {
 
-	public void setPrompt(String prompt) {
-		this.prompt = prompt;
-	}
+    }
+
+    public PromptString(String prompt) {
+	this.prompt = prompt;
+    }
+
+    public void display(Output output) {
+	output.displayString(this.prompt);
+    }
+
+    public String toString() {
+	return this.prompt;
+    }
+
+    public String getPrompt() {
+	return this.prompt;
+    }
+
+    public void setPrompt(String prompt) {
+	this.prompt = prompt;
+    }
 };

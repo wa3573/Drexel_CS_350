@@ -12,49 +12,49 @@ import SurveyApp.Output;
  * 
  */
 public class MenuGrade extends Menu {
-	/**
-	 * 
-	 */
-	private String filePath;
-	/**
-	 * 
-	 */
-	private String title;
-	/**
-	 * 
-	 */
-	private String author;
-	/**
-	 * 
-	 */
-	private int grade;
+    /**
+     * 
+     */
+    private String filePath;
+    /**
+     * 
+     */
+    private String title;
+    /**
+     * 
+     */
+    private String author;
+    /**
+     * 
+     */
+    private int grade;
 
-	/**
-	 * 
-	 * @return 
-	 * @param output 
-	 */
-	public void display(Output output) {
-	}
+    /**
+     * 
+     * @return
+     * @param output
+     */
+    public void display(Output output) {
+    }
 
-	/**
-	 * 
-	 * @param filePath 
-	 * @return 
-	 */
-	public void load(String filePath) {
-	}
+    /**
+     * 
+     * @param filePath
+     * @return
+     */
+    public void load(String filePath) {
+    }
 
-	/**
-	 * 
-	 * @return 
-	 */
-	public void getGrade() {
-	}
+    /**
+     * 
+     * @return
+     */
+    public void getGrade() {
+    }
 
-	/**
-	 * 
-	 */
-	public void MenuGrade() {
-	}
+    /**
+     * 
+     */
+    public void MenuGrade() {
+    }
 };

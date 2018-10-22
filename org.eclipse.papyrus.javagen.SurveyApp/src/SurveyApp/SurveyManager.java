@@ -4,6 +4,15 @@
 
 package SurveyApp;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Scanner;
+import java.util.regex.Pattern;
+
 import SurveyApp.Survey;
 
 /************************************************************/
@@ -11,38 +20,212 @@ import SurveyApp.Survey;
  * 
  */
 public class SurveyManager {
-	/**
-	 * 
-	 */
-	private String filePath;
-	private Survey surveyActive;
+    /**
+     * 
+     */
+    private String filePath;
+    private Survey surveyActive;
+    private boolean isSurveyActiveGradable;
+    private boolean isSaved;
+    private static SurveyManager instance = null;
+    private Scanner reader = new Scanner(System.in);
+//	private static final Pattern ALPHANUMERIC_PATTERN = Pattern.compile("[^a-zA-Z0-9]");
+    private static final Pattern FILE_PATH_PATTERN = Pattern.compile("[\\ / : ? * \" > < |]");
 
-	/**
-	 * 
-	 * @param filePath 
-	 */
-	public SurveyManager() {
+    private static final String saveDirPath = "userFiles/";
+
+//	private static final String saveDirPath = "";
+    /**
+     * 
+     * @param filePath
+     */
+    private SurveyManager() {
+	isSaved = true;
+    }
+
+    public static SurveyManager getInstance() {
+	if (instance == null) {
+	    instance = new SurveyManager();
 	}
 
-	/**
-	 * 
-	 * @param filePath 
-	 */
-	public void load(String filePath) {
+	return instance;
+    }
+
+    /**
+     * 
+     * @param filePath
+     */
+    public void load(String filePath) {
+    }
+
+    /**
+     * 
+     * @param survey
+     * @param filePath
+     */
+    public void promptFilePath() {
+	String userResponse = "";
+	File saveDirectory = new File(saveDirPath);
+
+	if (!saveDirectory.exists()) {
+	    saveDirectory.mkdir();
 	}
 
-	/**
-	 * 
-	 * @param survey 
-	 * @param filePath 
-	 */
-	public void save(Survey survey, String filePath) {
+	System.out.print("Enter filename (without extension): ");
+	userResponse = reader.nextLine();
+	boolean isNotAlphanumeric = FILE_PATH_PATTERN.matcher(userResponse).find();
+
+	while (isNotAlphanumeric) {
+	    System.out.print("Please enter only alphanumeric characters. " + "Enter filename (without extension): ");
+	    userResponse = reader.nextLine();
+	    isNotAlphanumeric = FILE_PATH_PATTERN.matcher(userResponse).find();
 	}
 
-	/**
-	 * 
-	 * @return 
-	 */
-	public void enumerate() {
+	if (this.isSurveyActiveGradable) {
+	    this.filePath = saveDirPath + userResponse + ".test";
+	} else {
+	    this.filePath = saveDirPath + userResponse + ".survey";
 	}
+    }
+
+    private boolean promptBoolean(String prompt) {
+	System.out.print(prompt + " ('y' or 'n'): ");
+	char userResponse = reader.nextLine().charAt(0);
+
+	while (userResponse != 'y' && userResponse != 'n') {
+	    System.out.print("Please enter a valid choice." + prompt + " ('y' or 'n'): ");
+	    userResponse = reader.nextLine().charAt(0);
+	}
+
+	if (userResponse == 'y') {
+	    return true;
+	} else {
+	    return false;
+	}
+    }
+
+    public void saveActive() {
+	if (this.getFilePath() == null) {
+	    this.promptFilePath();
+	} else {
+	    String prompt = "Current path is '" + this.getFilePath() + "', keep current path?";
+
+	    if (!this.promptBoolean(prompt)) {
+		this.promptFilePath();
+	    }
+	}
+
+	try {
+	    FileOutputStream file = new FileOutputStream(this.getFilePath());
+	    ObjectOutputStream out = new ObjectOutputStream(file);
+
+	    out.writeObject(this.getSurveyActive());
+
+	    out.close();
+	    file.close();
+
+	    System.out.println("File succesfully written as: " + this.getFilePath());
+	    this.isSaved = true;
+
+	} catch (IOException e) {
+	    System.err.println("saveActive(): IOException");
+	}
+    }
+
+    public void loadActive() {
+	Survey loadedSurvey = null;
+
+	if (this.getFilePath() == null) {
+	    this.promptFilePath();
+	} else {
+	    String prompt = "Current path is '" + this.getFilePath() + "', keep current path?";
+
+	    if (!this.promptBoolean(prompt)) {
+		this.promptFilePath();
+	    }
+	}
+
+	System.out.println("filePath = " + this.getFilePath());
+
+	try {
+	    FileInputStream file = new FileInputStream(this.getFilePath());
+	    ObjectInputStream in = new ObjectInputStream(file);
+
+	    try {
+		if (this.isSurveyActiveGradable()) {
+		    loadedSurvey = (Test) in.readObject();
+		} else {
+		    loadedSurvey = (Survey) in.readObject();
+		}
+	    } catch (ClassNotFoundException e) {
+		if (this.isSurveyActiveGradable()) {
+		    System.err.println("Class 'Test' not found");
+		} else {
+		    System.err.println("Class 'Survey' not found");
+		}
+
+		file.close();
+		in.close();
+		return;
+	    }
+
+	    file.close();
+	    in.close();
+
+	} catch (IOException e) {
+	    System.err.println("loadActive(): IOException");
+	    return;
+	}
+
+	System.out.println("File succesfully loaded from: " + this.getFilePath());
+	this.isSaved = true;
+
+	this.setSurveyActive(loadedSurvey);
+
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public void enumerate() {
+    }
+
+    public String getFilePath() {
+	return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+	this.filePath = filePath;
+    }
+
+    public Survey getSurveyActive() {
+	return surveyActive;
+    }
+
+    public void setSurveyActive(Survey surveyActive) {
+	this.surveyActive = surveyActive;
+
+	if (surveyActive instanceof Test) {
+	    this.isSurveyActiveGradable = true;
+	} else {
+	    this.isSurveyActiveGradable = false;
+	}
+    }
+
+    public boolean isSurveyActiveGradable() {
+	return isSurveyActiveGradable;
+    }
+
+    public void setSurveyActiveGradable(boolean isSurveyActiveGradable) {
+	this.isSurveyActiveGradable = isSurveyActiveGradable;
+    }
+
+    public boolean isSaved() {
+	return isSaved;
+    }
+
+    public void setSaved(boolean isSaved) {
+	this.isSaved = isSaved;
+    }
 };

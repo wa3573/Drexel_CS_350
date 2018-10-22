@@ -9,84 +9,175 @@ import SurveyApp.Menu;
 import SurveyApp.MenuChoice;
 
 /************************************************************/
-/**
- * 
- */
+
 public class MenuHome extends Menu {
 
-	public MenuHome() {
-		MenuChoice choice1 = new MenuChoice("Create a new Survey", 1);
-		MenuChoice choice2 = new MenuChoice("Create a new Test ", 2);
-		MenuChoice choice3 = new MenuChoice("Display a Survey", 3);
-		MenuChoice choice4 = new MenuChoice("Display a Test", 4);
-		MenuChoice choice5 = new MenuChoice("Load a Survey", 5);
-		MenuChoice choice6 = new MenuChoice("Load a Test", 6);
-		MenuChoice choice7 = new MenuChoice("Save a Survey", 7);
-		MenuChoice choice8 = new MenuChoice("Save a Test", 8);
-		MenuChoice choice9 = new MenuChoice("Quit", 9);
-		
-		ArrayList<MenuChoice> choices = new ArrayList<MenuChoice>();
-		
-		choices.add(choice1);
-		choices.add(choice2);
-		choices.add(choice3);
-		choices.add(choice4);
-		choices.add(choice5);
-		choices.add(choice6);
-		choices.add(choice7);
-		choices.add(choice8);
-		choices.add(choice9);
-		
-		this.setChoices(choices);
+    public static SurveyManager surveyManager;
+
+    public MenuHome() {
+	MenuChoice choice1 = new MenuChoice("Create a new Survey", 1);
+	MenuChoice choice2 = new MenuChoice("Create a new Test ", 2);
+	MenuChoice choice3 = new MenuChoice("Display a Survey", 3);
+	MenuChoice choice4 = new MenuChoice("Display a Test", 4);
+	MenuChoice choice5 = new MenuChoice("Load a Survey", 5);
+	MenuChoice choice6 = new MenuChoice("Load a Test", 6);
+	MenuChoice choice7 = new MenuChoice("Save a Survey", 7);
+	MenuChoice choice8 = new MenuChoice("Save a Test", 8);
+	MenuChoice choice9 = new MenuChoice("Quit", 9);
+
+	ArrayList<MenuChoice> choices = new ArrayList<MenuChoice>();
+
+	choices.add(choice1);
+	choices.add(choice2);
+	choices.add(choice3);
+	choices.add(choice4);
+	choices.add(choice5);
+	choices.add(choice6);
+	choices.add(choice7);
+	choices.add(choice8);
+	choices.add(choice9);
+
+	this.setChoices(choices);
+
+	surveyManager = SurveyManager.getInstance();
+    }
+
+    private void promptForUnsaved() {
+	if (this.promptBoolean("Active work item is not saved, would you like to save it now?")) {
+	    surveyManager.saveActive();
 	}
-	
-	/*
-	 * @override
-	 */
-	
-	public Menu selectChoice(int index) {
-		
-		Menu newMenu;
-		
-		switch (index) {
-		case 1:
-			/* Create */
-			newMenu = new MenuCreateSurvey();
-			break;
-		case 2:
-			/* Edit */
-			newMenu = new MenuEdit();
-			break;
-		case 3:
-			/* Fill */
-			newMenu = new MenuFill();
-			break;
-		case 4:
-			/* Grade */
-			newMenu = new MenuGrade();
-			break;
-		case 9:
-			/* Exit */
-			newMenu = null;
-			System.exit(0);
-			break;
-			
-		default:
-			newMenu = null;
-			System.err.println("selectChoice(): invalid index");
+    }
+
+    /*
+     * @override
+     */
+
+    public Menu selectChoice(int index) {
+
+	Menu newMenu;
+
+	switch (index) {
+	case 1:
+	    /* Create new survey */
+	    if (!surveyManager.isSaved()) {
+		this.promptForUnsaved();
+	    }
+	    newMenu = new MenuCreateSurvey();
+	    break;
+	case 2:
+	    /* Create new test */
+	    if (!surveyManager.isSaved()) {
+		this.promptForUnsaved();
+	    }
+	    newMenu = new MenuCreateTest();
+	    break;
+	case 3:
+	    /* Display survey */
+	    newMenu = this;
+
+	    if (surveyManager.getSurveyActive() == null) {
+		System.out.println("There is no active work item");
+		break;
+	    }
+
+	    if (surveyManager.isSurveyActiveGradable()) {
+		System.out.println("Active work item is a test, not a survey");
+		break;
+	    }
+	    System.out.println("Active survey: \n" + surveyManager.getSurveyActive());
+
+	    break;
+	case 4:
+	    /* Display test */
+	    newMenu = this;
+
+	    if (surveyManager.getSurveyActive() == null) {
+		System.out.println("There is no active work item");
+		break;
+	    }
+
+	    if (!surveyManager.isSurveyActiveGradable()) {
+		System.out.println("Active work item is a survey, not a test");
+		break;
+	    }
+	    System.out.println("Active test: \n" + surveyManager.getSurveyActive());
+
+	    break;
+	case 5:
+	    /* Load survey */
+	    newMenu = this;
+	    if (!surveyManager.isSaved()) {
+		this.promptForUnsaved();
+	    }
+
+	    surveyManager.setSurveyActiveGradable(false);
+	    surveyManager.loadActive();
+	    break;
+
+	case 6:
+	    /* Load test */
+	    newMenu = this;
+	    if (!surveyManager.isSaved()) {
+		this.promptForUnsaved();
+	    }
+
+	    surveyManager.setSurveyActiveGradable(true);
+	    surveyManager.loadActive();
+	    break;
+
+	case 7:
+	    /* Save survey */
+	    newMenu = this;
+
+	    if (surveyManager.isSurveyActiveGradable()) {
+		System.out.println("Active work item is a test, not a survey");
+		break;
+	    }
+
+	    surveyManager.saveActive();
+	    break;
+
+	case 8:
+	    /* Save test */
+
+	    newMenu = this;
+
+	    if (!surveyManager.isSurveyActiveGradable()) {
+		System.out.println("Active work item is a survey, not a test");
+		break;
+	    }
+
+	    surveyManager.saveActive();
+	    break;
+
+	case 9:
+	    /* Exit */
+	    newMenu = null;
+
+	    if (!surveyManager.isSaved()) {
+		if (this.promptBoolean("Current work item is not saved, would you like to save it now?")) {
+		    surveyManager.saveActive();
 		}
-		
-		return newMenu;
+	    }
+
+	    break;
+
+	default:
+	    newMenu = null;
+	    System.err.println("selectChoice(): invalid index");
 	}
-	
-	public String toString() {
-		String out = "";
-		
-		for (int i = 0; i < this.getNumberChoices(); i++) {
-			MenuChoice thisChoice = this.getChoices().get(i);
-			out += thisChoice.getIndex() + ") " + thisChoice.getValue() + "\n";
-		}
-		
-		return out;
+
+	return newMenu;
+    }
+
+    public String toString() {
+	String out = DIVIDER + "\n\t\t\t\t || Home Menu ||\n" + DIVIDER + "\n";
+
+	for (int i = 0; i < this.getNumberChoices(); i++) {
+	    MenuChoice thisChoice = this.getChoices().get(i);
+	    out += thisChoice.getIndex() + ") " + thisChoice.getValue() + "\n";
 	}
+
+	return out;
+    }
 };

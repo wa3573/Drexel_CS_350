@@ -11,30 +11,30 @@ import SurveyApp.Menu;
  * 
  */
 public class MenuSave extends Menu {
-	/**
-	 * 
-	 */
-	private String author;
-	/**
-	 * 
-	 */
-	private String title;
-	/**
-	 * 
-	 */
-	private String filePath;
+    /**
+     * 
+     */
+    private String author;
+    /**
+     * 
+     */
+    private String title;
+    /**
+     * 
+     */
+    private String filePath;
 
-	/**
-	 * 
-	 */
-	public void MenuSave() {
-	}
+    /**
+     * 
+     */
+    public void MenuSave() {
+    }
 
-	/**
-	 * 
-	 * @param filePath 
-	 * @return 
-	 */
-	public void save(String filePath) {
-	}
+    /**
+     * 
+     * @param filePath
+     * @return
+     */
+    public void save(String filePath) {
+    }
 };

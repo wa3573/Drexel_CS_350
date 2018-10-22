@@ -11,14 +11,14 @@ import SurveyApp.Menu;
  * 
  */
 public class MenuAddQuestion extends Menu {
-	/**
-	 * 
-	 */
-	private String question;
+    /**
+     * 
+     */
+    private String question;
 
-	/**
-	 * 
-	 */
-	public void MenuAddQuestion() {
-	}
+    /**
+     * 
+     */
+    public void MenuAddQuestion() {
+    }
 };

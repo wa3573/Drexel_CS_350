@@ -5,88 +5,128 @@
 package SurveyApp;
 
 import java.util.*;
-import java.util.regex.Pattern;
+//import java.util.regex.Pattern;
+//
+//import SurveyApp.SurveyManager;
 
 /************************************************************/
 /**
  * 
  */
 public class MenuManager {
-	/**
-	 * 
+    /**
+     * 
+     */
+
+    private static MenuManager instance = null;
+    private ArrayList<Menu> menus;
+
+    private Menu menuActive;
+    private Scanner reader = new Scanner(System.in);
+
+    /**
+     * 
+     */
+    private MenuManager() {
+	Menu menuHome = new MenuHome();
+	ArrayList<Menu> menus = new ArrayList<Menu>();
+
+	menus.add(menuHome);
+
+	this.setMenus(menus);
+	this.setMenuActive(menuHome);
+	System.out.println("\n" + this.getMenuActive());
+
+	/*
+	 * Continue to acquire and display new menus until the next active menu is null,
+	 * at which point the program is exited
 	 */
-	private ArrayList<Menu> menus;
-	
-	private Menu menuActive;
-	private Scanner reader = new Scanner(System.in);
-	private static final Pattern ALPHANUMERIC = Pattern.compile("[^a-zA-Z0-9]");
-	/**
-	 * 
-	 */
-	public MenuManager() {
-		Menu menuHome = new MenuHome();
-		ArrayList<Menu> menus = new ArrayList<Menu>();
-		
-		menus.add(menuHome);
-		
-		this.setMenus(menus);
-		this.setMenuActive(menuHome);
-		this.displayMenuActive();
-		
-		while (this.getMenuActive() != null) {
-			this.getNewMenu();
-			System.out.println();
-			this.displayMenuActive();
-		}
+	while (this.getMenuActive() != null) {
+	    this.getNewMenu();
+
+	    if (this.getMenuActive() != null) {
+		System.out.println("\n" + this.getMenuActive());
+	    } else {
+		System.out.println("Exitting...");
+		System.exit(0);
+	    }
+	}
+    }
+
+    public static MenuManager getInstance() {
+	if (instance == null) {
+	    instance = new MenuManager();
 	}
 
-	/**
-	 * 
-	 * @param menus 
-	 * @return 
-	 */
-	public void setMenus(ArrayList<Menu> menus) {
-		this.menus = menus;
-	}
-	
-	public ArrayList<Menu> getMenus() {
-		return menus;
+	return instance;
+    }
+
+    /**
+     * 
+     * @param menus
+     * @return
+     */
+    public void setMenus(ArrayList<Menu> menus) {
+	this.menus = menus;
+    }
+
+    public ArrayList<Menu> getMenus() {
+	return menus;
+    }
+
+    /**
+     * 
+     * @param index
+     * @return
+     */
+    public void displayMenu(int index) {
+	System.out.print(this.getMenus().get(index));
+	System.out.println("\nPlease select a choice:");
+    }
+
+    public void displayMenuActive() {
+	System.out.print(this.menuActive);
+	System.out.println();
+    }
+
+    public Menu getMenuActive() {
+	return menuActive;
+    }
+
+    public void setMenuActive(Menu menuActive) {
+	this.menuActive = menuActive;
+    }
+
+    protected int promptForInteger(String prompt) {
+	System.out.println(prompt);
+	int result = 0;
+
+	while (result == 0) {
+	    try {
+		result = Integer.parseInt(this.reader.nextLine());
+	    } catch (NumberFormatException e) {
+		// e.printStackTrace();
+		System.out.println("Please enter an integer");
+	    }
 	}
 
-	/**
-	 * 
-	 * @param index 
-	 * @return 
-	 */
-	public void displayMenu(int index) {
-		System.out.print(this.getMenus().get(index));
-		System.out.println("\nPlease select a choice:");
-	}
-	
-	public void displayMenuActive() {
-		System.out.print(this.menuActive);
-		System.out.println("\nPlease select a choice:");
+	return result;
+    }
+
+    private int promptForMenuInteger(String prompt) {
+	int result = this.promptForInteger(prompt);
+	int numChoices = this.menuActive.getNumberChoices();
+
+	while (result < 1 | result > numChoices) {
+	    result = this.promptForInteger("Please enter a valid choice:");
 	}
 
-	public Menu getMenuActive() {
-		return menuActive;
-	}
+	return result;
+    }
 
-	public void setMenuActive(Menu menuActive) {
-		this.menuActive = menuActive;
-	}
-	
-	
-	public void getNewMenu() {
-		int userResponse = this.reader.nextInt();
-		int numChoices = this.menuActive.getNumberChoices();
-		
-		while (userResponse < 1 | userResponse > numChoices) {
-			System.out.println("Please enter a valid choice:");
-			userResponse = this.reader.nextInt();
-		}
-		
-		this.menuActive = this.menuActive.selectChoice(userResponse);
-	}
+    public void getNewMenu() {
+	int userResponse = this.promptForMenuInteger("Please select a choice:");
+	this.menuActive = this.menuActive.selectChoice(userResponse);
+    }
 
 };

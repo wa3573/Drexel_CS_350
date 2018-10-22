@@ -12,56 +12,78 @@ import SurveyApp.Essay;
  * 
  */
 public class ShortAnswer extends Essay {
-	/**
-	 * 
-	 */
-	private int maxLength;
-	/**
-	 * 
-	 */
-	private ArrayList<CorrectResponse> responsesSystem;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -3214850409776728492L;
+    /**
+     * 
+     */
+    private int maxLength;
+    /**
+     * 
+     */
+    private ArrayList<CorrectResponse> responsesSystem;
 
-	/**
-	 * 
-	 */
-	public ShortAnswer() {
+    /**
+     * 
+     */
+    public ShortAnswer() {
+    }
+
+    /**
+     * 
+     * @param length
+     * @return
+     */
+    public void setMaxLength(int length) {
+	this.maxLength = length;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public int getMaxLength() {
+	return this.maxLength;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public ArrayList<CorrectResponse> getResponsesSystem() {
+	return this.responsesSystem;
+    }
+
+    /**
+     * 
+     * @return
+     * @param responses
+     */
+    public void setResponsesSystem(ArrayList<CorrectResponse> responses) {
+	if (responses.size() > 1) {
+	    System.err.println("setResponsesSystem(): Error, more than one response provided");
 	}
 
-	/**
-	 * 
-	 * @param length 
-	 * @return 
-	 */
-	public void setMaxLength(int length) {
-		this.maxLength = length;
+	this.responsesSystem = responses;
+    }
+
+    public String toString() {
+	String currentAnswer;
+
+	if (this.getResponsesUser().isEmpty()) {
+	    currentAnswer = "";
+	} else {
+	    currentAnswer = this.getResponsesUser().get(0).toString();
 	}
 
-	/**
-	 * 
-	 * @return 
-	 */
-	public int getMaxLength() {
-		return this.maxLength;
+	String str = "[Short Answer]\t" + this.getPrompt() + " : " + currentAnswer;
+
+	if (this.responsesSystem != null) {
+	    str += "\n\t(Correct answer) " + this.getResponsesSystem();
 	}
 
-	/**
-	 * 
-	 * @return 
-	 */
-	public ArrayList<CorrectResponse> getResponsesSystem() {
-		return this.responsesSystem;
-	}
-
-	/**
-	 * 
-	 * @return 
-	 * @param responses 
-	 */
-	public void setResponsesSystem(ArrayList<CorrectResponse> responses) {
-		if (responses.size() > 1) {
-			System.err.println("setResponsesSystem(): Error, more than one response provided");
-		}
-		
-		this.responsesSystem = responses;
-	}
+	return str;
+    }
 };

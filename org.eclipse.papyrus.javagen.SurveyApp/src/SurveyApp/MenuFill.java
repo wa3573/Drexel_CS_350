@@ -11,9 +11,9 @@ import SurveyApp.Menu;
  * 
  */
 public class MenuFill extends Menu {
-	/**
-	 * 
-	 */
-	public void MenuFill() {
-	}
+    /**
+     * 
+     */
+    public void MenuFill() {
+    }
 };
