@@ -31,17 +31,13 @@ public class MultipleChoice extends Question implements java.io.Serializable {
 
     private int numberChoices;
 
+    /* responsesSystem are those which should be considered correct. */
     private ArrayList<CorrectResponse> responsesSystem;
     private ArrayList<CorrectResponse> responsesPossible;
 
     public MultipleChoice() {
     }
 
-    /**
-     * 
-     * @return
-     * @param responses
-     */
     public void setResponsesSystem(ArrayList<CorrectResponse> responses) {
 	this.responsesSystem = responses;
     }

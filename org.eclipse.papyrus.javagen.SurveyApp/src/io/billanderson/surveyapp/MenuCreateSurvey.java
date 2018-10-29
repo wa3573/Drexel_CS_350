@@ -30,7 +30,7 @@ public class MenuCreateSurvey extends Menu {
     private Survey survey;
     private ArrayList<Question> questions;
     private Boolean isGradable;
-    
+
     public MenuCreateSurvey() {
 	MenuChoice choice1 = new MenuChoice("Add a new T/F question", 1);
 	MenuChoice choice2 = new MenuChoice("Add a new multiple choice question", 2);
@@ -55,16 +55,17 @@ public class MenuCreateSurvey extends Menu {
 	/*
 	 * Initialize local copy of a Survey and set it as active in the surveyManager.
 	 */
-	this.survey = new Survey();
+	this.setSurvey(new Survey());
 	getSurveyManager().setSurveyActive(this.getSurvey());
 	/*
-	 * Initialize local questions.
+	 * Initialize local questions. Set them as the Survey's questions.
 	 */
-	this.questions = new ArrayList<Question>();
+	this.setQuestions(new ArrayList<Question>());
+	this.getSurvey().setQuestions(this.getQuestions());
 	/*
-	 * Indicate that the current work item has not been saved.
+	 * Even if the user has not added questions, they have created a new Survey.
+	 * Thus, it is not saved. The surveyManager is set to reflect this.
 	 */
-
 	getSurveyManager().setSaved(false);
     }
 
@@ -143,7 +144,7 @@ public class MenuCreateSurvey extends Menu {
 	    newQuestion = new TrueFalse();
 	    newQuestion.setPrompt(newPrompt);
 
-	    this.questions.add(newQuestion);
+	    this.getQuestions().add(newQuestion);
 	    newMenu = this;
 	    break;
 	case 2:
@@ -158,7 +159,7 @@ public class MenuCreateSurvey extends Menu {
 	    newResponses = promptForCorrectResponses(numberNewResponses);
 	    newQuestionMC.setResponsesPossible(newResponses);
 
-	    this.questions.add(newQuestionMC);
+	    this.getQuestions().add(newQuestionMC);
 	    newMenu = this;
 	    break;
 	case 3:
@@ -168,7 +169,7 @@ public class MenuCreateSurvey extends Menu {
 	    newQuestion = new ShortAnswer();
 	    newQuestion.setPrompt(newPrompt);
 
-	    this.questions.add(newQuestion);
+	    this.getQuestions().add(newQuestion);
 	    newMenu = this;
 	    break;
 	case 4:
@@ -178,7 +179,7 @@ public class MenuCreateSurvey extends Menu {
 	    newQuestion = new Essay();
 	    newQuestion.setPrompt(newPrompt);
 
-	    this.questions.add(newQuestion);
+	    this.getQuestions().add(newQuestion);
 	    newMenu = this;
 	    break;
 	case 5:
@@ -192,7 +193,7 @@ public class MenuCreateSurvey extends Menu {
 	    newResponses = promptForCorrectResponses(numberNewResponses);
 	    newQuestionR.setResponsesLeftSystem(newResponses);
 
-	    this.questions.add(newQuestionR);
+	    this.getQuestions().add(newQuestionR);
 	    newMenu = this;
 	    break;
 	case 6:
@@ -226,7 +227,7 @@ public class MenuCreateSurvey extends Menu {
 
 	    newQuestionM.setResponsesRight(newResponses);
 
-	    this.questions.add(newQuestionM);
+	    this.getQuestions().add(newQuestionM);
 	    newMenu = this;
 	    break;
 	case 7:
@@ -237,9 +238,6 @@ public class MenuCreateSurvey extends Menu {
 	default:
 	    newMenu = null;
 	}
-
-	this.survey.setQuestions(this.questions);
-	getSurveyManager().setSaved(false);
 
 	return newMenu;
     }
@@ -252,13 +250,10 @@ public class MenuCreateSurvey extends Menu {
 	 * printing the menu.
 	 */
 	if (!this.getSurvey().getQuestions().isEmpty()) {
-	    out += "\nCurrent survey: \n" + this.survey + "\n" + DIVIDER + "\n";
+	    out += "\nCurrent survey: \n" + this.getSurvey() + "\n" + DIVIDER + "\n";
 	}
 
-	for (int i = 0; i < this.getNumberChoices(); i++) {
-	    MenuChoice thisChoice = this.getChoices().get(i);
-	    out += thisChoice.getIndex() + ") " + thisChoice.getValue() + "\n";
-	}
+	out += this.getChoicesString();
 
 	return out;
     }

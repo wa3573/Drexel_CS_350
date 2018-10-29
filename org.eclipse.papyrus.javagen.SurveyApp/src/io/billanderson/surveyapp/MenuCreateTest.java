@@ -71,9 +71,20 @@ public class MenuCreateTest extends MenuCreateSurvey {
 
 	initKnownStrings();
 
+	/*
+	 * Initialize local copy of a Test and set it as active in the surveyManager.
+	 */
 	this.setSurvey(new Test());
 	getSurveyManager().setSurveyActive(this.getSurvey());
+	/*
+	 * Initialize local questions. Set them as the Survey's questions.
+	 */
 	this.setQuestions(new ArrayList<Question>());
+	this.getSurvey().setQuestions(this.getQuestions());
+	/*
+	 * Even if the user has not added questions, they have created a new Survey.
+	 * Thus, it is not saved. The surveyManager is set to reflect this.
+	 */
 	getSurveyManager().setSaved(false);
     }
 
@@ -235,7 +246,7 @@ public class MenuCreateTest extends MenuCreateSurvey {
 	    newAnswers = new ArrayList<CorrectResponse>();
 	    numberNewResponses = this.promptForInteger("Enter the number of choices for your ranking question:");
 
-	    System.out.println("When entering choices, do so in the order which should"
+	    System.out.println("When entering choices, do so in the order which should "
 		    + "be considered correct. They will be randomized for the user.");
 	    for (int i = 0; i < numberNewResponses; i++) {
 		System.out.println("Enter Choice #" + (i + 1) + ":");
@@ -291,9 +302,6 @@ public class MenuCreateTest extends MenuCreateSurvey {
 	    newMenu = null;
 	}
 
-	this.getSurvey().setQuestions(this.getQuestions());
-	getSurveyManager().setSaved(false);
-
 	return newMenu;
     }
 
@@ -301,13 +309,10 @@ public class MenuCreateTest extends MenuCreateSurvey {
 	String out = DIVIDER + "\n\t\t\t || Test Creation Menu ||\n" + DIVIDER + "\n";
 
 	if (!this.getSurvey().getQuestions().isEmpty()) {
-	    out += "\nCurrent survey: \n" + this.getSurvey() + "\n" + DIVIDER + "\n";
+	    out += "\nCurrent test: \n" + this.getSurvey() + "\n" + DIVIDER + "\n";
 	}
 
-	for (int i = 0; i < this.getNumberChoices(); i++) {
-	    MenuChoice thisChoice = this.getChoices().get(i);
-	    out += thisChoice.getIndex() + ") " + thisChoice.getValue() + "\n";
-	}
+	out += this.getChoicesString();
 
 	return out;
     }

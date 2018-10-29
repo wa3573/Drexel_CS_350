@@ -19,7 +19,8 @@ package io.billanderson.surveyapp;
 
 /************************************************************/
 /**
- * 
+ * The Prompt base class has been left abstract, so as to allow for different
+ * types of prompts later on, such as audio or visual.
  */
 public abstract class Prompt implements java.io.Serializable {
 

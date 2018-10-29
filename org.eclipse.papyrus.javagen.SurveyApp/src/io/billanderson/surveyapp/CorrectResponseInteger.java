@@ -40,8 +40,8 @@ public class CorrectResponseInteger extends CorrectResponse {
 
     /**
      * 
-     * @param other another object instance of CorrectResponseInteger
-     * @return standard compareTo scheme (0 if equal)
+     * @param other  another object instance of CorrectResponseInteger
+     * @return  standard compareTo scheme (0 if equal)
      */
     public int compareTo(CorrectResponseInteger other) {
 	Integer thisValue = new Integer(this.response);

@@ -46,8 +46,8 @@ public class CorrectResponseString extends CorrectResponse {
 
     /**
      * 
-     * @param other another object instance of CorrectResponseString
-     * @return standard compareTo scheme (0 if equal)
+     * @param other  another object instance of CorrectResponseString
+     * @return  standard compareTo scheme (0 if equal)
      */
     public int compareTo(CorrectResponseString other) {
 	String thisValue = new String(this.response);

@@ -58,8 +58,8 @@ public class Matching extends Question {
     }
 
     /**
-     * @param index1 first index to swap with second index
-     * @param index2 second index to swap with first index
+     * @param index1  first index to swap with second index
+     * @param index2  second index to swap with first index
      */
     public void swapResponsesLeftUser(int index1, int index2) {
 	Collections.swap(this.responsesLeftUser, index1, index2);

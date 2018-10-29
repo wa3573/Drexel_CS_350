@@ -86,31 +86,37 @@ public class SurveyManager {
 	}
 
 	System.out.print("Enter filename (without extension): ");
-	userResponse = reader.nextLine();
+	userResponse = getReader().nextLine();
 	boolean isNotValidFilename = FILE_PATH_PATTERN.matcher(userResponse).find();
 
 	while (isNotValidFilename) {
 	    System.out.print("File names may not contain any of these characters \\ / : ? * \" > < | \n"
 		    + "Enter filename (without extension): ");
-	    userResponse = reader.nextLine();
+	    userResponse = getReader().nextLine();
 	    isNotValidFilename = FILE_PATH_PATTERN.matcher(userResponse).find();
 	}
 
 	/* Append the appropriate file extension */
-	if (this.isSurveyActiveGradable) {
+	if (this.isSurveyActiveGradable()) {
 	    this.filePath = saveDirPath + userResponse + ".test";
 	} else {
 	    this.filePath = saveDirPath + userResponse + ".survey";
 	}
     }
 
-    private boolean promptBoolean(String prompt) {
+    protected boolean promptBoolean(String prompt) {
 	System.out.print(prompt + " ('y' or 'n'): ");
-	char userResponse = reader.nextLine().charAt(0);
+	String nextLine = getReader().nextLine();
+	char userResponse = nextLine.charAt(0);
 
-	while (userResponse != 'y' && userResponse != 'n') {
-	    System.out.print("Please enter a valid choice." + prompt + " ('y' or 'n'): ");
-	    userResponse = reader.nextLine().charAt(0);
+	/*
+	 * Request valid output if the user did not enter 'y', 'n', or if they entered
+	 * more than one character
+	 */
+	while ((userResponse != 'y' && userResponse != 'n') || nextLine.length() > 1) {
+	    System.out.print("Please enter a valid choice.\n" + prompt + " ('y' or 'n'): ");
+	    nextLine = getReader().nextLine();
+	    userResponse = nextLine.charAt(0);
 	}
 
 	if (userResponse == 'y') {
@@ -186,8 +192,13 @@ public class SurveyManager {
     public void loadActive() {
 	Survey loadedSurvey = null; // Storage variable for method's scope
 
-	/* Check/prompt for file path */
-	if (this.getFilePath() == null) {
+	/*
+	 * If the manager's file path is not already set, or the file path has the wrong
+	 * extensions, prompt the user for it.
+	 * Otherwise, ask the user if they would like to keep the current path. If not,
+	 * prompt for the new path.
+	 */
+	if (this.getFilePath() == null || this.isFilePathWrongExtension()) {
 	    this.promptForFilePath();
 	} else {
 	    String prompt = "Current path is '" + this.getFilePath() + "', keep current path?";
@@ -285,5 +296,13 @@ public class SurveyManager {
 
     public void setSaved(boolean isSaved) {
 	this.isSaved = isSaved;
+    }
+
+    public Scanner getReader() {
+        return reader;
+    }
+
+    public void setReader(Scanner reader) {
+        this.reader = reader;
     }
 };

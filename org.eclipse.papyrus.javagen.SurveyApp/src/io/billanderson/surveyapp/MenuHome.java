@@ -27,7 +27,7 @@ import io.billanderson.surveyapp.MenuChoice;
 
 /*
  * MenuHome is the first menu which is loaded and can be considered the root of the
- * menu tree, that from which all other menus can be accessed directly or indirectly.
+ * menu tree: that from which all other menus can be accessed directly or indirectly.
  */
 
 public class MenuHome extends Menu {
@@ -66,10 +66,16 @@ public class MenuHome extends Menu {
 	}
     }
 
+    
+    private void promptIfUnsaved() {
+	if (!getSurveyManager().isSaved()) {
+	    this.promptForUnsaved();
+	}
+    }
+    
     /*
      * @override
      */
-
     public Menu selectChoice(int index) {
 
 	Menu newMenu;
@@ -77,16 +83,12 @@ public class MenuHome extends Menu {
 	switch (index) {
 	case 1:
 	    /* Create new survey */
-	    if (!getSurveyManager().isSaved()) {
-		this.promptForUnsaved();
-	    }
+	    promptIfUnsaved();
 	    newMenu = new MenuCreateSurvey();
 	    break;
 	case 2:
 	    /* Create new test */
-	    if (!getSurveyManager().isSaved()) {
-		this.promptForUnsaved();
-	    }
+	    promptIfUnsaved();
 	    newMenu = new MenuCreateTest();
 	    break;
 	case 3:
@@ -105,7 +107,7 @@ public class MenuHome extends Menu {
 		break;
 	    }
 	    
-	    System.out.println("Active survey: \n" + getSurveyManager().getSurveyActive());
+	    System.out.println(DIVIDER + "\nActive survey: \n\n" + getSurveyManager().getSurveyActive());
 
 	    break;
 	case 4:
@@ -124,20 +126,15 @@ public class MenuHome extends Menu {
 		break;
 	    }
 	    
-	    System.out.println("Active test: \n" + getSurveyManager().getSurveyActive());
+	    System.out.println(DIVIDER + "\nActive test: \n\n" + getSurveyManager().getSurveyActive());
 
 	    break;
 	case 5:
 	    /* Load survey */
 	    newMenu = this;
 	    /* Make sure user doesn't inadvertently lose the active work item */
-	    if (!getSurveyManager().isSaved()) {
-		this.promptForUnsaved();
-	    }
+	    promptIfUnsaved();
 
-	    /* TODO: setActiveGradable(), may be redundant, as setSurveyActive()
-	     * changes this value based on 'instanceof'
-	     */
 	    getSurveyManager().setSurveyActiveGradable(false);
 	    getSurveyManager().loadActive();
 	    break;
@@ -146,9 +143,7 @@ public class MenuHome extends Menu {
 	    /* Load test */
 	    newMenu = this;
 	    /* Make sure user doesn't inadvertently lose the active work item */
-	    if (!getSurveyManager().isSaved()) {
-		this.promptForUnsaved();
-	    }
+	    promptIfUnsaved();
 
 	    getSurveyManager().setSurveyActiveGradable(true);
 	    getSurveyManager().loadActive();
@@ -182,17 +177,11 @@ public class MenuHome extends Menu {
 	case 9:
 	    /* Exit */
 	    newMenu = null;
-
-	    if (!getSurveyManager().isSaved()) {
-		if (this.promptBoolean("Current work item is not saved, would you like to save it now?")) {
-		    getSurveyManager().saveActive();
-		}
-	    }
-
+	    promptIfUnsaved();
 	    break;
 
 	default:
-	    newMenu = null;
+	    newMenu = this;
 	    System.err.println("selectChoice(): invalid index");
 	}
 
@@ -202,10 +191,7 @@ public class MenuHome extends Menu {
     public String toString() {
 	String out = DIVIDER + "\n\t\t\t\t || Home Menu ||\n" + DIVIDER + "\n";
 
-	for (int i = 0; i < this.getNumberChoices(); i++) {
-	    MenuChoice thisChoice = this.getChoices().get(i);
-	    out += thisChoice.getIndex() + ") " + thisChoice.getValue() + "\n";
-	}
+	out += this.getChoicesString();
 
 	return out;
     }

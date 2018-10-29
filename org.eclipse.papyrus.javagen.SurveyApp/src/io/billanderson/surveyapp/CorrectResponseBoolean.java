@@ -44,8 +44,8 @@ public class CorrectResponseBoolean extends CorrectResponse {
 
     /**
      * 
-     * @param other another object instance of CorrectResponseBoolean
-     * @return standard compareTo scheme (0 if equal)
+     * @param other  another object instance of CorrectResponseBoolean
+     * @return  standard compareTo scheme (0 if equal)
      */
     public int compareTo(CorrectResponseBoolean other) {
 	Boolean thisValue = new Boolean(this.response);

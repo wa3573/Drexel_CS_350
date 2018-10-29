@@ -109,6 +109,7 @@ public class MenuManager {
 	int result = this.promptForInteger(prompt);
 	int numChoices = this.menuActive.getNumberChoices();
 
+	/* Make sure the user response is within the range of possible choices. */
 	while (result < 1 | result > numChoices) {
 	    result = this.promptForInteger("Please enter a valid selection:");
 	}

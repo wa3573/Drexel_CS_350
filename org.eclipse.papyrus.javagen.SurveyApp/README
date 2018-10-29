@@ -1,0 +1,35 @@
+/**
+ * - Survey and Test Utility -
+ *
+ * By: William J. Anderson
+ * 
+ * Current Version: 0.15
+ * 
+ * Updated: 10/29/2018
+ * 
+ * Provides simple capability for writing, editing, filling, saving and loading
+ * surveys and tests.
+ */
+ 
+ 
+ Information for grading:
+ 
+ Source files are located in "src/io/billanderson/surveyapp", according to
+ package naming and directory structure conventions. 
+ 
+ The method chosen for saving and loading files is binary serialization, as
+ the implementation was straightforward, and achieved the desired results.
+ No significant issues are present in this implementation at this time.
+ 
+ One sample each has been
+ included in the directory "userFiles/" for both Survey and Test files. They
+ are named "sample.survey" and "sample.test", respectively. Their contents are
+ contrived questions with little actual meaning, but demonstrate the
+ functionality of the program well enough.
+ 
+ In order to load saved files, select either 5) or 6) to load a Survey or Test,
+ respectively. The user may then use 3) or 4) to display the Survey or Test,
+ respectively.
+ 
+ Feel free to create your own surveys and tests. The operation should be self-
+ explanatory and the program robust against invalid input and user error.

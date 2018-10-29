@@ -34,10 +34,11 @@ public abstract class Menu {
 	    + "====================";
 
     private static SurveyManager surveyManager;
-    
+
     /*
-     * Menu constructors handle adding their choices, obtaining the surveyManager,
-     * and creating private instances of needed variables
+     * Menu base constructor handles obtaining the surveyManager, and creating a new
+     * Scanner instance. Child constructors add their menu items and initialize
+     * necessary variables.
      */
     public Menu() {
 	this.reader = new Scanner(System.in);
@@ -53,11 +54,13 @@ public abstract class Menu {
     /*
      * Overridden by child classes, this controls the basic functionality of the
      * individual menu, and returns a menu which directs the menu manager to the
-     * next menu to display. 
+     * next menu to display.
      * 
      * Each choice of the menu has its behavior defined within this function.
-     * Simple prompts do not constitute menus themselves, as they may have input other
-     * than numbered choices used to select choices in the Menu class. As such, these
+     * Simple prompts do not constitute menus themselves, as they may have input
+     * other
+     * than numbered choices used to select choices in the Menu class. As such,
+     * these
      * prompts are defined here.
      */
     public Menu selectChoice(int index) {
@@ -87,11 +90,17 @@ public abstract class Menu {
      */
     protected boolean promptBoolean(String prompt) {
 	System.out.print(prompt + " ('y' or 'n'): ");
-	char userResponse = reader.nextLine().charAt(0);
+	String nextLine = getReader().nextLine();
+	char userResponse = nextLine.charAt(0);
 
-	while (userResponse != 'y' && userResponse != 'n') {
+	/*
+	 * Request valid output if the user did not enter 'y', 'n', or if they entered
+	 * more than one character
+	 */
+	while ((userResponse != 'y' && userResponse != 'n') || nextLine.length() > 1) {
 	    System.out.print("Please enter a valid choice.\n" + prompt + " ('y' or 'n'): ");
-	    userResponse = reader.nextLine().charAt(0);
+	    nextLine = getReader().nextLine();
+	    userResponse = nextLine.charAt(0);
 	}
 
 	if (userResponse == 'y') {
@@ -99,6 +108,16 @@ public abstract class Menu {
 	} else {
 	    return false;
 	}
+    }
+    
+    protected String getChoicesString() {
+	String out = "";
+	for (int i = 0; i < this.getNumberChoices(); i++) {
+	    MenuChoice thisChoice = this.getChoices().get(i);
+	    out += thisChoice.getIndex() + ") " + thisChoice.getValue() + "\n";
+	}
+	
+	return out;
     }
 
     public ArrayList<MenuChoice> getChoices() {
@@ -115,13 +134,13 @@ public abstract class Menu {
     }
 
     public Scanner getReader() {
-        return reader;
+	return reader;
     }
 
     public void setReader(Scanner reader) {
-        this.reader = reader;
+	this.reader = reader;
     }
-    
+
     public static SurveyManager getSurveyManager() {
 	return surveyManager;
     }

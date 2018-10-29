@@ -28,7 +28,7 @@ import io.billanderson.surveyapp.SurveyManager;
  * 
  * Current Version: 0.15
  * 
- * Updated: 10/24/2018
+ * Updated: 10/29/2018
  * 
  * Provides simple capability for writing, editing, filling, saving and loading
  * surveys and tests.
@@ -59,7 +59,7 @@ public class Main {
 
     /**
      * 
-     * @param args no functionality at the moment.
+     * @param args  no functionality at the moment.
      */
     public static void main(String[] args) {
 	printHeader();

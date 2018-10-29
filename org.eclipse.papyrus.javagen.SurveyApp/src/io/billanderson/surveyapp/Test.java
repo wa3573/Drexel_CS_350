@@ -35,11 +35,8 @@ public class Test extends Survey {
     /**
      * 
      */
+    @SuppressWarnings("unused")
     private int grade;
-    /**
-     * 
-     */
-    private ArrayList<CorrectResponse> correctAnswers;
 
     /**
      * 
@@ -47,60 +44,32 @@ public class Test extends Survey {
     public Test() {
     }
 
-    /**
-     * 
-     * @param index
-     * @param answer
-     * @return
-     */
     public void addCorrectAnswer(int index, CorrectResponse answer) {
     }
 
-    /**
-     * 
-     * @param answer
-     * @return
-     */
     public void enterAnswer(int index, CorrectResponse answer) {
     }
 
-    /**
-     * 
-     * @param answers
-     * @return
-     */
     public void enterAnswers(ArrayList<CorrectResponse> answers) {
     }
 
-    /**
-     * 
-     * @param index
-     * @param answer
-     * @return
-     */
+
     public void editAnswer(int index, CorrectResponse answer) {
     }
 
-    /**
-     * 
-     * @return
-     */
-    public int getGrade() {
-	int denominator = this.correctAnswers.size();
-	int numerator = 0;
 
-	for (int i = 0; i < this.correctAnswers.size(); i++) {
-	    Question currentQuestion = this.getQuestions().get(i);
-	    ArrayList<CorrectResponse> userResponses = currentQuestion.getResponsesUser();
+    /* TODO: Implement grade method. */
+//    public int getGrade() {
+//	int denominator = this.correctAnswers.size();
+//	int numerator = 0;
+//
+//	for (int i = 0; i < this.correctAnswers.size(); i++) {
+//	    Question currentQuestion = this.getQuestions().get(i);
+//	    ArrayList<CorrectResponse> userResponses = currentQuestion.getResponsesUser();
+//
+//	}
+//
+//	return 0;
+//    }
 
-	}
-
-	return 0;
-    }
-
-    /**
-     * 
-     * @param index
-     * @return
-     */
 };
