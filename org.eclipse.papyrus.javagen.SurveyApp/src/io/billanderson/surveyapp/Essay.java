@@ -32,6 +32,13 @@ public class Essay extends Question {
 
     public Essay() {
     }
+    
+    public String typeToString() {
+	String str = "Essay";
+	
+	return str;
+    }
+    
 
     public String toString() {
 	String str = "[Essay]\t\t" + this.getPrompt() + " : ";
@@ -45,5 +52,10 @@ public class Essay extends Question {
 	}
 
 	return str;
+    }
+
+    @Override
+    public void accept(QuestionVisitor visitor) {
+	visitor.visit(this);
     }
 };

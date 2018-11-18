@@ -19,9 +19,7 @@
 package io.billanderson.surveyapp;
 
 import java.util.ArrayList;
-
 import io.billanderson.surveyapp.MultipleChoice;
-
 
 
 /************************************************************/
@@ -31,7 +29,7 @@ public class TrueFalse extends MultipleChoice {
     private static final long serialVersionUID = -4970733003633443256L;
 
     public TrueFalse() {
-	ArrayList<CorrectResponse> responsesPossible = new ArrayList<CorrectResponse>();
+	ArrayList<CorrectResponse> responsesPossible = this.getResponsesPossible();
 	CorrectResponse responseTrue = new CorrectResponseBoolean(true);
 	CorrectResponse responseFalse = new CorrectResponseBoolean(false);
 	
@@ -41,6 +39,12 @@ public class TrueFalse extends MultipleChoice {
 	this.setResponsesPossible(responsesPossible);
     }
 
+    public String typeToString() {
+	String str = "True/False";
+	
+	return str;
+    }
+    
     public String toString() {
 	String currentAnswer;
 
@@ -54,11 +58,16 @@ public class TrueFalse extends MultipleChoice {
 
 	str += "\n\t(Possible answers) " + this.getResponsesPossible();
 	
-	if (this.getResponsesSystem() != null) {
+	if (!this.getResponsesSystem().isEmpty()) {
 	    CorrectResponse correctAnswer = this.getResponsesSystem().get(0);
 	    str += "\n\t(Correct answer) " + correctAnswer;
 	}
 
 	return str;
+    }
+    
+    @Override
+    public void accept(QuestionVisitor visitor) {
+	visitor.visit(this);
     }
 };

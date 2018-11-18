@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
-
 package io.billanderson.surveyapp;
 
 import java.util.*;
@@ -26,7 +25,7 @@ import io.billanderson.surveyapp.Essay;
 /**
  * 
  */
-public class ShortAnswer extends Essay {
+public class ShortAnswer extends Essay implements Gradable {
 
     private static final long serialVersionUID = -3214850409776728492L;
     private int maxLength;
@@ -34,6 +33,7 @@ public class ShortAnswer extends Essay {
 
     public ShortAnswer() {
 	this.setMaxNumberResponses(1);
+	this.responsesSystem = new ArrayList<CorrectResponse>();
     }
 
     public void setMaxLength(int length) {
@@ -48,6 +48,10 @@ public class ShortAnswer extends Essay {
 	return this.responsesSystem;
     }
 
+    public CorrectResponse getResponseSystem(int index) {
+	return this.responsesSystem.get(index);
+    }
+
     public void setResponsesSystem(ArrayList<CorrectResponse> responses) {
 	/* Sanity check: should only be one response */
 	if (responses.size() > this.getMaxNumberResponses()) {
@@ -55,6 +59,20 @@ public class ShortAnswer extends Essay {
 	}
 
 	this.responsesSystem = responses;
+    }
+
+    public <T> boolean listEqualsIgnoreOrder(List<T> list1, List<T> list2) {
+	return new HashSet<>(list1).equals(new HashSet<>(list2));
+    }
+
+    public boolean isCorrect() {
+	return listEqualsIgnoreOrder(this.getResponsesUser(), this.getResponsesSystem());
+    }
+    
+    public String typeToString() {
+	String str = "Short Answer";
+	
+	return str;
     }
 
     public String toString() {
@@ -68,10 +86,15 @@ public class ShortAnswer extends Essay {
 
 	String str = "[Short Answer]\t" + this.getPrompt() + " : " + currentAnswer;
 
-	if (this.responsesSystem != null) {
+	if (!this.getResponsesSystem().isEmpty()) {
 	    str += "\n\t(Correct answer) " + this.getResponsesSystem().get(0);
 	}
 
 	return str;
+    }
+    
+    @Override
+    public void accept(QuestionVisitor visitor) {
+	visitor.visit(this);
     }
 };

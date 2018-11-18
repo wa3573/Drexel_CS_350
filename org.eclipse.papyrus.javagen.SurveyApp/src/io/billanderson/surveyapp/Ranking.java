@@ -18,6 +18,9 @@
 
 package io.billanderson.surveyapp;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import io.billanderson.surveyapp.Matching;
 
 /************************************************************/
@@ -32,25 +35,72 @@ public class Ranking extends Matching {
      * 
      */
     public Ranking() {
+	this.setResponsesRight(this.getResponsesLeftSystem());
     }
+    
+    public String responsesToString() {
+	String str = "";
+	ArrayList<CorrectResponse> responsesLeft = this.getResponsesLeftSystem();
+	for (int i = 0; i < responsesLeft.size(); i++) {
+	    String strLeft = this.indexToAlphabet(i + 1) + ") " + responsesLeft.get(i);
+	    String line = String.format(" %-38s", strLeft);
 
+	    str += line + "\n";
+	}
+	return str;
+    }
+    
+    /*
+     * initResponsesPossible() initializes responsesPossible as a randomized
+     * set of responsesLeftSystem.
+     */
+    public void initResponsesPossible() {
+	ArrayList<CorrectResponse> responses = new ArrayList<CorrectResponse>(this.getResponsesLeftSystem());
+	
+	Collections.shuffle(responses);
+	this.setResponsesPossible(responses);
+	this.setResponsesRight(this.getResponsesLeftSystem());
+    }
+    
+    public String responsesPossibleToString() {
+	String str = "";
+	ArrayList<CorrectResponse> responses = this.getResponsesPossible();
+	for (int i = 0; i < this.getResponsesPossible().size(); i++) {
+	    str += this.indexToAlphabet(i + 1) + ") ";
+	    str += responses.get(i) + " ";
+	}
+	
+	return str;
+    }
+    
+    
+    public String typeToString() {
+	String str = "Ranking";
+	
+	return str;
+    }
+    
     public String toString() {
-	String currentAnswer;
+	String currentAnswer = "";
 
-	if (this.getResponsesUser().isEmpty()) {
-	    currentAnswer = "";
-	} else {
-	    currentAnswer = this.getResponsesUser().get(0).toString();
+	if (!this.getResponsesUser().isEmpty()) {
+	    currentAnswer = this.getResponsesUser().toString();
 	}
 
 	String str = "[Ranking]\t\t" + this.getPrompt() + " : " + currentAnswer;
 
 	str += "\n\t(Possible choices) " + this.getResponsesLeftSystem();
 
-	if (this.getResponsesRight() != null) {
+	if (!this.getResponsesRight().isEmpty()) {
 	    str += "\n\t(Correct order of choices) " + this.getResponsesRight();
 	}
 
 	return str;
+    }
+    
+    @Override
+    public void accept(QuestionVisitor visitor) {
+	visitor.visit(this);
+
     }
 };

@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
-
 package io.billanderson.surveyapp;
 
 import java.util.*;
@@ -26,15 +25,18 @@ import io.billanderson.surveyapp.MenuChoice;
 /************************************************************/
 
 /*
- * MenuHome is the first menu which is loaded and can be considered the root of the
- * menu tree: that from which all other menus can be accessed directly or indirectly.
+ * MenuHome is the first menu which is loaded and can be considered the root of
+ * the
+ * menu tree: that from which all other menus can be accessed directly or
+ * indirectly.
  */
-
 public class MenuHome extends Menu {
 
-//    public static SurveyManager surveyManager;
+    private Scanner reader;
 
     public MenuHome() {
+	this.reader = new Scanner(System.in);
+
 	MenuChoice choice1 = new MenuChoice("Create a new Survey", 1);
 	MenuChoice choice2 = new MenuChoice("Create a new Test ", 2);
 	MenuChoice choice3 = new MenuChoice("Display a Survey", 3);
@@ -43,7 +45,14 @@ public class MenuHome extends Menu {
 	MenuChoice choice6 = new MenuChoice("Load a Test", 6);
 	MenuChoice choice7 = new MenuChoice("Save a Survey", 7);
 	MenuChoice choice8 = new MenuChoice("Save a Test", 8);
-	MenuChoice choice9 = new MenuChoice("Quit", 9);
+	MenuChoice choice9 = new MenuChoice("Modify an Existing Survey", 9);
+	MenuChoice choice10 = new MenuChoice("Modify an Existing Test ", 10);
+	MenuChoice choice11 = new MenuChoice("Take a Survey", 11);
+	MenuChoice choice12 = new MenuChoice("Take a Test", 12);
+	MenuChoice choice13 = new MenuChoice("Grade a Test", 13);
+	MenuChoice choice14 = new MenuChoice("Tabulate a Survey", 14);
+	MenuChoice choice15 = new MenuChoice("Tabulate a Test", 15);
+	MenuChoice choice16 = new MenuChoice("Quit", 16);
 
 	ArrayList<MenuChoice> choices = new ArrayList<MenuChoice>();
 
@@ -56,6 +65,13 @@ public class MenuHome extends Menu {
 	choices.add(choice7);
 	choices.add(choice8);
 	choices.add(choice9);
+	choices.add(choice10);
+	choices.add(choice11);
+	choices.add(choice12);
+	choices.add(choice13);
+	choices.add(choice14);
+	choices.add(choice15);
+	choices.add(choice16);
 
 	this.setChoices(choices);
     }
@@ -66,19 +82,65 @@ public class MenuHome extends Menu {
 	}
     }
 
-    
     private void promptIfUnsaved() {
 	if (!getSurveyManager().isSaved()) {
 	    this.promptForUnsaved();
 	}
     }
-    
-    /*
-     * @override
-     */
+
+    private int loadSurvey() {
+	/* Make sure user doesn't inadvertently lose the active work item */
+	promptIfUnsaved();
+
+	getSurveyManager().setSurveyActiveGradable(false);
+	return getSurveyManager().loadActive();
+    }
+
+    private int loadTest() {
+	/* Make sure user doesn't inadvertently lose the active work item */
+	promptIfUnsaved();
+
+	getSurveyManager().setSurveyActiveGradable(true);
+	return getSurveyManager().loadActive();
+    }
+
+    protected int promptForInteger(String prompt) {
+	System.out.println(prompt);
+	int result = 0;
+
+	while (result == 0) {
+	    String nextLine = this.reader.nextLine();
+
+	    /* function returns 0 if the user wishes to quit */
+	    if (nextLine.compareTo("RETURN") == 0) {
+		return 0;
+	    }
+
+	    try {
+
+		result = Integer.parseInt(nextLine);
+	    } catch (NumberFormatException e) {
+		// e.printStackTrace();
+		System.out.println("Please enter an integer");
+	    }
+	}
+
+	return result;
+    }
+
+    protected String promptForString(String prompt) {
+	System.out.println(prompt);
+	String result = this.getReader().nextLine();
+
+	return result;
+    }
+
+    @Override
     public Menu selectChoice(int index) {
 
-	Menu newMenu;
+	Menu newMenu = this;
+	SurveyFiller surveyFiller = null;
+	SurveyModifier surveyModifier = null;
 
 	switch (index) {
 	case 1:
@@ -93,7 +155,6 @@ public class MenuHome extends Menu {
 	    break;
 	case 3:
 	    /* Display survey */
-	    newMenu = this;
 
 	    /* Check that there is an active survey */
 	    if (getSurveyManager().getSurveyActive() == null) {
@@ -106,14 +167,12 @@ public class MenuHome extends Menu {
 		System.out.println("Active work item is a test, not a survey");
 		break;
 	    }
-	    
+
 	    System.out.println(DIVIDER + "\nActive survey: \n\n" + getSurveyManager().getSurveyActive());
 
 	    break;
 	case 4:
 	    /* Display test */
-	    newMenu = this;
-
 	    /* Check that there is an active survey */
 	    if (getSurveyManager().getSurveyActive() == null) {
 		System.out.println("There is no active work item");
@@ -125,34 +184,22 @@ public class MenuHome extends Menu {
 		System.out.println("Active work item is a survey, not a test");
 		break;
 	    }
-	    
+
 	    System.out.println(DIVIDER + "\nActive test: \n\n" + getSurveyManager().getSurveyActive());
 
 	    break;
 	case 5:
 	    /* Load survey */
-	    newMenu = this;
-	    /* Make sure user doesn't inadvertently lose the active work item */
-	    promptIfUnsaved();
-
-	    getSurveyManager().setSurveyActiveGradable(false);
-	    getSurveyManager().loadActive();
+	    this.loadSurvey();
 	    break;
 
 	case 6:
 	    /* Load test */
-	    newMenu = this;
-	    /* Make sure user doesn't inadvertently lose the active work item */
-	    promptIfUnsaved();
-
-	    getSurveyManager().setSurveyActiveGradable(true);
-	    getSurveyManager().loadActive();
+	    this.loadTest();
 	    break;
 
 	case 7:
 	    /* Save survey */
-	    newMenu = this;
-
 	    if (getSurveyManager().isSurveyActiveGradable()) {
 		System.out.println("Active work item is a test, not a survey");
 		break;
@@ -163,9 +210,6 @@ public class MenuHome extends Menu {
 
 	case 8:
 	    /* Save test */
-
-	    newMenu = this;
-
 	    if (!getSurveyManager().isSurveyActiveGradable()) {
 		System.out.println("Active work item is a survey, not a test");
 		break;
@@ -175,13 +219,88 @@ public class MenuHome extends Menu {
 	    break;
 
 	case 9:
+	    /* Modify an Existing Survey */
+	    surveyModifier = new SurveyModifier();
+	    
+	    System.out.println("What survey do you wish to modify?");
+	    if (this.loadSurvey() > 0) {
+		break;
+	    }
+
+	    surveyModifier.start();
+
+	    break;
+	case 10:
+	    /* Modify an Existing Test */
+	    surveyModifier = new SurveyModifier();
+	    
+	    System.out.println("What test do you wish to modify?");
+	    if (this.loadTest() > 0) {
+		break;
+	    }
+
+	    surveyModifier.start();
+
+	    break;
+	case 11:
+	    /* Take a Survey */
+	    surveyFiller = new SurveyFiller();
+
+	    System.out.println("What survey do you wish to take?");
+	    if (this.loadSurvey() > 0) {
+		break;
+	    }
+
+	    surveyFiller.start();
+
+	    break;
+	case 12:
+	    /* Take a Test */
+	    surveyFiller = new SurveyFiller();
+
+	    System.out.println("What test do you wish to take?");
+	    if (this.loadTest() > 0) {
+		break;
+	    }
+
+	    surveyFiller.start();
+
+	    break;
+	case 13:
+	    /* Grade a Test */
+	    System.out.println("Which test do you wish to grade?");
+	    if (this.loadTest() > 0) {
+		break;
+	    }
+
+	    getSurveyManager().gradeActive();
+
+	    break;
+	case 14:
+	    /* Tabulate a Survey */
+	    System.out.println("What survey do you wish to tabulate?");
+	    if (this.loadSurvey() > 0) {
+		break;
+	    }
+
+	    getSurveyManager().tabulateActive();
+	    break;
+	case 15:
+	    /* Tabulate a Test */
+	    System.out.println("What test do you wish to tabulate?");
+	    if (this.loadTest() > 0) {
+		break;
+	    }
+
+	    getSurveyManager().tabulateActive();
+	    break;
+	case 16:
 	    /* Exit */
 	    newMenu = null;
 	    promptIfUnsaved();
 	    break;
 
 	default:
-	    newMenu = this;
 	    System.err.println("selectChoice(): invalid index");
 	}
 

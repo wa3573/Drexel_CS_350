@@ -25,34 +25,61 @@ import io.billanderson.surveyapp.CorrectResponse;
 public class CorrectResponseBoolean extends CorrectResponse {
 
     private static final long serialVersionUID = 3917886455079420589L;
-    public boolean response;
+    public Boolean response;
 
-    public void setResponse(boolean response) {
+    public void setResponse(Boolean response) {
 	this.response = response;
     }
 
     public CorrectResponseBoolean() {
     }
 
-    public CorrectResponseBoolean(boolean response) {
+    public CorrectResponseBoolean(Boolean response) {
 	this.response = response;
     }
 
-    public boolean getResponse() {
+    public Boolean getResponse() {
 	return this.response;
     }
 
-    /**
-     * 
-     * @param other  another object instance of CorrectResponseBoolean
-     * @return  standard compareTo scheme (0 if equal)
-     */
-    public int compareTo(CorrectResponseBoolean other) {
-	Boolean thisValue = new Boolean(this.response);
-
-	return thisValue.compareTo(other.response);
+    @Override
+    public boolean equals(Object o) {
+	if (this == o) {
+	    return true;
+	}
+	
+	if (o == null) {
+	    return false;
+	}
+	
+	if (this.getClass() != o.getClass()) {
+	    return false;
+	}
+	
+	final CorrectResponseBoolean other = (CorrectResponseBoolean) o;
+	
+	if (this.getResponse() == null) {
+	    if (other.getResponse() != null) {
+		return false;
+	    }
+	} else if (this.getResponse().compareTo(other.getResponse()) != 0){
+	    return false;
+	}
+	
+	return true;
+	
     }
+    
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
 
+	result = prime * result + ((this.getResponse() == null ? 0 : this.getResponse().hashCode()));
+
+	return result;
+    }
+    
     public String toString() {
 	Boolean thisValue = new Boolean(this.getResponse());
 

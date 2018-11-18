@@ -82,5 +82,12 @@ public abstract class Question implements java.io.Serializable {
     public void setMaxNumberResponses(int numberResponses) {
         this.maxNumberResponses = numberResponses;
     }
-
+    
+    public String typeToString() {
+	String str = "[Generic Question]";
+	
+	return str;
+    }
+    
+    public abstract void accept(QuestionVisitor visitor);
 };

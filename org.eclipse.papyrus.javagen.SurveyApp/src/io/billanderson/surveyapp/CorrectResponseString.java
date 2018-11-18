@@ -50,9 +50,47 @@ public class CorrectResponseString extends CorrectResponse {
      * @return  standard compareTo scheme (0 if equal)
      */
     public int compareTo(CorrectResponseString other) {
-	String thisValue = new String(this.response);
+	String thisValue = new String(this.getResponse());
 
-	return thisValue.compareTo(other.response);
+	return thisValue.compareTo(other.getResponse());
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+	if (this == o) {
+	    return true;
+	}
+	
+	if (o == null) {
+	    return false;
+	}
+	
+	if (this.getClass() != o.getClass()) {
+	    return false;
+	}
+	
+	final CorrectResponseString other = (CorrectResponseString) o;
+	
+	if (this.getResponse() == null) {
+	    if (other.getResponse() != null) {
+		return false;
+	    }
+	} else if (this.getResponse().compareTo(other.getResponse()) != 0){
+	    return false;
+	}
+	
+	return true;
+	
+    }
+    
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+
+	result = prime * result + ((this.getResponse() == null ? 0 : this.getResponse().hashCode()));
+
+	return result;
     }
 
     public String toString() {

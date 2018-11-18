@@ -50,6 +50,10 @@ public class Survey implements java.io.Serializable {
     public Survey() {
 	this.questions = new ArrayList<Question>();
     }
+    
+    public Survey(Survey survey) {
+	this.questions = new ArrayList<Question>(survey.getQuestions());
+    }
 
     public void addQuestion(Question question) {
 	this.questions.add(question);
@@ -108,5 +112,10 @@ public class Survey implements java.io.Serializable {
 	}
 
 	return out;
+    }
+
+    public int getNumberQuestions() {
+	this.numberQuestions = this.getQuestions().size();
+        return numberQuestions;
     }
 };

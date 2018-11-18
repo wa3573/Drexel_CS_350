@@ -15,12 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
-
 package io.billanderson.surveyapp;
 
-import java.util.*;
-
-import io.billanderson.surveyapp.CorrectResponse;
 import io.billanderson.surveyapp.Survey;
 
 /************************************************************/
@@ -43,33 +39,37 @@ public class Test extends Survey {
      */
     public Test() {
     }
-
-    public void addCorrectAnswer(int index, CorrectResponse answer) {
+    
+    public Test(Test test) {
+	this.setQuestions(test.getQuestions());
     }
 
-    public void enterAnswer(int index, CorrectResponse answer) {
+    public Test(Survey survey) {
+	this.setQuestions(survey.getQuestions());
     }
 
-    public void enterAnswers(ArrayList<CorrectResponse> answers) {
+    /* 
+     * getGrade() returns a double value out of 100, reflecting the percentage of correct answers. 
+     */
+    public double getGrade() {
+	int numberQuestions = this.getNumberQuestions();
+	double denominator = numberQuestions * 10.0;
+	double numerator = 0.0;
+	
+	QuestionGradeVisitor gradeVisitor = new QuestionGradeVisitor();
+
+	for (int i = 0; i < numberQuestions; i++) {
+	    Question currentQuestion = this.getQuestion(i);
+
+	    currentQuestion.accept(gradeVisitor);
+	    
+	    if (gradeVisitor.isCorrect()) {
+		numerator += 10;
+	    }
+	}
+
+	double result = (numerator / denominator) * 100;
+	return result;
     }
-
-
-    public void editAnswer(int index, CorrectResponse answer) {
-    }
-
-
-    /* TODO: Implement grade method. */
-//    public int getGrade() {
-//	int denominator = this.correctAnswers.size();
-//	int numerator = 0;
-//
-//	for (int i = 0; i < this.correctAnswers.size(); i++) {
-//	    Question currentQuestion = this.getQuestions().get(i);
-//	    ArrayList<CorrectResponse> userResponses = currentQuestion.getResponsesUser();
-//
-//	}
-//
-//	return 0;
-//    }
 
 };

@@ -23,15 +23,39 @@ package io.billanderson.surveyapp;
  * CorrectResponse is the abstract base class upon which specific types of
  * comparable responses are based (Integer, String, etc.).
  */
-public abstract class CorrectResponse implements java.lang.Comparable<CorrectResponse>, java.io.Serializable {
+public abstract class CorrectResponse implements java.io.Serializable {
 
     private static final long serialVersionUID = 6623864594070392366L;
 
     public CorrectResponse() {
     }
-
-    public int compareTo(CorrectResponse other) {
-	return 0;
+    
+    @Override
+    public boolean equals(Object o) {
+	if (this == o) {
+	    return true;
+	}
+	
+	if (o == null) {
+	    return false;
+	}
+	
+	if (this.getClass() != o.getClass()) {
+	    return false;
+	}
+	
+//	final CorrectResponseString other = (CorrectResponseString) o;
+//	
+//	if (this.getResponse() == null) {
+//	    if (other.getResponse() != null) {
+//		return false;
+//	    }
+//	} else if (this..compareTo(other.getResponse()) != 0){
+//	    return false;
+//	}
+	
+	return true;
+	
     }
 
 };

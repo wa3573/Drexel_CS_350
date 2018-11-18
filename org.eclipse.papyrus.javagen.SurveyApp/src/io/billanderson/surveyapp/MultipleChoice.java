@@ -26,7 +26,7 @@ import io.billanderson.surveyapp.Question;
  * 
  */
 public class MultipleChoice extends Question implements java.io.Serializable {
-    
+
     private static final long serialVersionUID = 5485613461481054312L;
 
     private int numberChoices;
@@ -36,6 +36,8 @@ public class MultipleChoice extends Question implements java.io.Serializable {
     private ArrayList<CorrectResponse> responsesPossible;
 
     public MultipleChoice() {
+	this.responsesSystem = new ArrayList<CorrectResponse>();
+	this.responsesPossible = new ArrayList<CorrectResponse>();
     }
 
     public void setResponsesSystem(ArrayList<CorrectResponse> responses) {
@@ -46,28 +48,21 @@ public class MultipleChoice extends Question implements java.io.Serializable {
 	return this.responsesSystem;
     }
 
+    public CorrectResponse getResponseSystem(int index) {
+	return this.responsesSystem.get(index);
+    }
+
     public int getNumberChoices() {
+	this.numberChoices = this.getResponsesPossible().size();
 	return numberChoices;
     }
 
+    public <T> boolean listEqualsIgnoreOrder(List<T> list1, List<T> list2) {
+	return new HashSet<>(list1).equals(new HashSet<>(list2));
+    }
+
     public boolean isCorrect() {
-	boolean result = true;
-
-	/* Check that each system response is contained in the user responses */
-	for (int i = 0; i < this.getResponsesSystem().size(); i++) {
-	    if (!this.getResponsesUser().contains(this.getResponsesSystem().get(i))) {
-		result = false;
-	    }
-	}
-
-	/* Check that each user response is contained in the system responses */
-	for (int i = 0; i < this.getResponsesUser().size(); i++) {
-	    if (!this.getResponsesSystem().contains(this.getResponsesUser().get(i))) {
-		result = false;
-	    }
-	}
-
-	return result;
+	return listEqualsIgnoreOrder(this.getResponsesUser(), this.getResponsesSystem());
     }
 
     public ArrayList<CorrectResponse> getResponsesPossible() {
@@ -76,6 +71,76 @@ public class MultipleChoice extends Question implements java.io.Serializable {
 
     public void setResponsesPossible(ArrayList<CorrectResponse> responsesPossible) {
 	this.responsesPossible = responsesPossible;
+    }
+
+    /* indexToAlphabet() converts an integer to the format where 27 = 'AB' */
+    public String indexToAlphabet(int index) {
+	int asciiA = 65;
+	int iterations = index / 26;
+	int count = index;
+	String str = "";
+
+	while (count > 0) {
+	    if (iterations > 0) {
+		str += "A";
+	    } else {
+		int thisChar = count;
+		str += (char) (asciiA + thisChar - 1);
+	    }
+
+	    iterations -= 1;
+	    count -= 26;
+	}
+
+	return str;
+    }
+
+    /* alphabetToIndex() is the complement to indexToAlphabet. */
+    public int alphabetToIndex(String str) {
+	int asciiA = 65;
+	int length = str.length();
+	int iterations = length - 1;
+	int count = 0;
+	while (iterations >= 0) {
+	    if (iterations > 0) {
+		count += 26;
+	    } else {
+		int thisChar = ((int) str.toUpperCase().charAt(length - 1)) - asciiA + 1;
+		count += thisChar;
+	    }
+
+	    iterations -= 1;
+	}
+
+	return count;
+    }
+
+    public boolean isValidChoice(String str) {
+	boolean result = false;
+	int index = this.alphabetToIndex(str);
+
+	if (index <= this.getNumberChoices()) {
+	    result = true;
+	}
+
+	return result;
+    }
+
+    public String responsesPossibleToString() {
+	String str = "";
+	ArrayList<CorrectResponse> responses = this.getResponsesPossible();
+	for (int i = 0; i < this.getNumberChoices(); i++) {
+	    str += this.indexToAlphabet(i + 1) + ") ";
+	    str += responses.get(i) + " ";
+	}
+
+	return str;
+    }
+
+    public String typeToString() {
+	String str = "Multiple Choice";
+
+	return str;
     }
 
     public String toString() {
@@ -91,11 +156,16 @@ public class MultipleChoice extends Question implements java.io.Serializable {
 
 	str += "\n\t(Possible answers) " + this.getResponsesPossible();
 
-	if (this.responsesSystem != null) {
+	if (!this.getResponsesSystem().isEmpty()) {
 	    str += "\n\t(Correct answers) " + this.getResponsesSystem();
 	}
 
 	return str;
+    }
+
+    @Override
+    public void accept(QuestionVisitor visitor) {
+	visitor.visit(this);
     }
 
 };
