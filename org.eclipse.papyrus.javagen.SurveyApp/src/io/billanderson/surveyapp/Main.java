@@ -37,10 +37,10 @@ import io.billanderson.surveyapp.SurveyManager;
  */
 public class Main {
     /* Header divider is (80 * '~') */
-    public static String DIVIDER_HEADER = "~~~~~~~~~~~~~~~~~~~~" + "~~~~~~~~~~~~~~~~~~~~" + "~~~~~~~~~~~~~~~~~~~~"
-	    + "~~~~~~~~~~~~~~~~~~~~";
-
-    public static String APPLICATION_TITLE = "Survey and Test Utility v0.15";
+//    public static String DIVIDER_HEADER = "~~~~~~~~~~~~~~~~~~~~" + "~~~~~~~~~~~~~~~~~~~~" + "~~~~~~~~~~~~~~~~~~~~"
+//	    + "~~~~~~~~~~~~~~~~~~~~";
+    public static String DIVIDER_HEADER = new String(new char[80]).replaceAll("\0", "~");
+    public static String APPLICATION_TITLE = "Survey and Test Utility v0.20";
     public static String AUTHOR_NAME = "William J. Anderson";
 
     public static void printHeaderDivider() {

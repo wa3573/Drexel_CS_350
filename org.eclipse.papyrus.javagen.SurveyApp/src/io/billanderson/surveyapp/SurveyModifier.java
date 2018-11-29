@@ -256,10 +256,10 @@ public class SurveyModifier extends SurveyUtility {
 		    if (this.promptBoolean("Do you wish to modify the correct answer?")) {
 			String str = this.promptForString("Please enter the new correct answer");
 
+			ArrayList<CorrectResponse> responses = new ArrayList<CorrectResponse>();
 			CorrectResponseString correctResponse = new CorrectResponseString(str);
-
-			ArrayList<CorrectResponse> responses = ((Gradable) selectedQuestion).getResponsesSystem();
 			responses.add(correctResponse);
+			((Gradable) selectedQuestion).setResponsesSystem(responses);
 		    }
 
 		}

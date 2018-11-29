@@ -30,8 +30,7 @@ public abstract class Menu {
     private ArrayList<MenuChoice> choices;
     private int numberChoices;
     private Scanner reader;
-    public static String DIVIDER = "====================" + "====================" + "===================="
-	    + "====================";
+    public static String DIVIDER = new String(new char[80]).replaceAll("\0", "=");
 
     private static SurveyManager surveyManager;
 

@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /*
  * As conceived, a SurveyUtility is one which utilizes the active survey
- * in the SurveyManager. For example, SurveyFiller or SurveyManager.
+ * in the SurveyManager. For example, SurveyFiller or SurveyModifier.
  * All concrete subclasses must implement a start() method.
  */
 public abstract class SurveyUtility {

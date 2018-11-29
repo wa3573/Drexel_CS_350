@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
-
 package io.billanderson.surveyapp;
 
 import io.billanderson.surveyapp.CorrectResponse;
@@ -47,29 +46,29 @@ public class CorrectResponseBoolean extends CorrectResponse {
 	if (this == o) {
 	    return true;
 	}
-	
+
 	if (o == null) {
 	    return false;
 	}
-	
+
 	if (this.getClass() != o.getClass()) {
 	    return false;
 	}
-	
+
 	final CorrectResponseBoolean other = (CorrectResponseBoolean) o;
-	
+
 	if (this.getResponse() == null) {
 	    if (other.getResponse() != null) {
 		return false;
 	    }
-	} else if (this.getResponse().compareTo(other.getResponse()) != 0){
+	} else if (this.getResponse().compareTo(other.getResponse()) != 0) {
 	    return false;
 	}
-	
+
 	return true;
-	
+
     }
-    
+
     @Override
     public int hashCode() {
 	final int prime = 31;
@@ -79,7 +78,7 @@ public class CorrectResponseBoolean extends CorrectResponse {
 
 	return result;
     }
-    
+
     public String toString() {
 	Boolean thisValue = new Boolean(this.getResponse());
 

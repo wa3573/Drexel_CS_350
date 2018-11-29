@@ -11,8 +11,94 @@
  * surveys and tests.
  */
  
+ Assignment #4 Comments:
  
- Information for grading:
+ ********************************************************************************
+ The survey code does not contain references to a test, correct answer or grading.
+ ********************************************************************************
+ 
+ Upon inspection, one can note that a "Survey" contains lists of questions.
+ Questions contain lists of "CorrectResponse" objects. However, CorrectResponse
+ was simply a name chosen to indicate that such an object could be compared to
+ another response, if required. 
+ 
+ That is, questions which are gradable (every type but "Essay") implement the 
+ "Gradable" interface, which specifies methods which must be implemented in order
+ for the grading mechanics to function. In turn, "CorrectResponse" types override
+ the equals() and hashCode() methods inherited from the "Object" class, in order
+ to make singular and hash based equality comparisons possible.
+ 
+ Now, just because a CorrectResponse CAN be compared to another, does not mean it
+ IS ALWAYS compared to another. The name "CorrectResponse" was simply chosen to
+ indicate the possibility for this functionality. The name "response" is also
+ used to describe filled surveys and tests. Hence, a different name avoids possible
+ confusion.
+ 
+ Thus, my evaluation is that the "Survey" class does not contain any code 
+ referencing a test, correct answer or grading. In fact, "Test" simply inherits 
+ from "Survey", while adding the method getGrade, which computes the grade as a
+ percentage.
+ 
+ Compiling Instructions:
+ 
+ NOTE: for some reason, the 'xunil' servers still have Java 7 installed/linked for
+ the Java compiler. See this output:
+ 
+ 	javac -version
+ 	javac 1.7.0_191
+ 	
+ So, this code will not compile, because it uses streams, a Java 8 feature.
+ Java 7 is no longer supported, so I do not feel the necessity to back-port
+ this code to be functional with it. 
+ 
+ The code compiles and runs perfectly on 'tux.cs.drexel.edu', which will 
+ probably be used regardless. So, on tux, or a similar Java 8 equipped
+ machine, follow these instructions to compile and run, starting from the
+ uncompressed archive's top directory.
+ 
+ to compile:
+ 	javac ./src/io/billanderson/surveyapp/*.java -d .
+ 	
+ to run:
+ 	java io.billanderson.surveyapp.Main
+ 
+ Information for grading (Assignment 3):
+ 
+ Samples have been included for Survey and Test classes, named "sample.survey"
+ and "sample.test" respectively. These can be accessed and displayed as
+ discussed below. New functionality allows for the modification of tests and
+ surveys, and example modifications are included as the files
+ "sample_modified.survey" and "sample_modified.test", where modifications have
+ been made and saved. 
+ 
+ 3 sample results have been included for the original, unmodified sample survey/
+ test. These can be tabulated using selections 15) & 16) from the home menu,
+ and the test results may be graded using selection 13). The test results included
+ will be displayed as choices to the user based on how recently they were completed.
+ In this case, the most recently completed test has a score of 50%, the second most
+ recent has a score of 0% and the least recent results file has a score of 83.3%
+ which is completely correct, less the fraction for the essay question.
+ 
+ Feel free to create, save, load, modify, tabulate and grade your own surveys and
+ tests. The program has been thoroughly tested and appears adequately functional
+ and robust against malformed user input.
+ 
+ Saving scheme for results:
+ 
+ results are saved in the sub-directory /userFiles/results/survey or
+ /userFiles/results/test. With the naming scheme as follows:
+ 
+ [survey file name].[timestamp (ms since epoch)].results
+ 
+ example:
+ /userFiles/results/survey/sample.1542638661470.results
+ 
+ This way, each result has a unique name which can be used to determine which
+ of the results is the most recent, which aids in selection by the user, and
+ prevents difficulties that might arise with asking the user to name the results.
+ 
+ 
+ Information for grading (Assignment 2):
  
  Source files are located in "src/io/billanderson/surveyapp", according to
  package naming and directory structure conventions. 

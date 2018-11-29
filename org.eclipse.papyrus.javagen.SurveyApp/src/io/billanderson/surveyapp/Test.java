@@ -28,18 +28,13 @@ public class Test extends Survey {
      * 
      */
     private static final long serialVersionUID = -4569527932381470972L;
-    /**
-     * 
-     */
-    @SuppressWarnings("unused")
-    private int grade;
 
     /**
      * 
      */
     public Test() {
     }
-    
+
     public Test(Test test) {
 	this.setQuestions(test.getQuestions());
     }
@@ -48,21 +43,22 @@ public class Test extends Survey {
 	this.setQuestions(survey.getQuestions());
     }
 
-    /* 
-     * getGrade() returns a double value out of 100, reflecting the percentage of correct answers. 
+    /*
+     * getGrade() returns a double value out of 100, reflecting the percentage of
+     * correct answers.
      */
     public double getGrade() {
 	int numberQuestions = this.getNumberQuestions();
 	double denominator = numberQuestions * 10.0;
 	double numerator = 0.0;
-	
+
 	QuestionGradeVisitor gradeVisitor = new QuestionGradeVisitor();
 
 	for (int i = 0; i < numberQuestions; i++) {
 	    Question currentQuestion = this.getQuestion(i);
 
 	    currentQuestion.accept(gradeVisitor);
-	    
+
 	    if (gradeVisitor.isCorrect()) {
 		numerator += 10;
 	    }

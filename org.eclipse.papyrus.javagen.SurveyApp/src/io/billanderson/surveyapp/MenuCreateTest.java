@@ -18,7 +18,6 @@
 package io.billanderson.surveyapp;
 
 import java.util.ArrayList;
-
 import io.billanderson.surveyapp.CorrectResponseBoolean;
 import io.billanderson.surveyapp.Menu;
 import io.billanderson.surveyapp.Test;

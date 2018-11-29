@@ -44,7 +44,6 @@ public class Survey implements java.io.Serializable {
     /**
      * 
      */
-    @SuppressWarnings("unused")
     private int numberQuestions;
 
     public Survey() {

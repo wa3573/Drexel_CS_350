@@ -16,6 +16,8 @@ public class SurveyFiller extends SurveyUtility {
     }
     
     private void fillMatching(Matching currentMatching, ArrayList<CorrectResponse> newResponses) {
+	QuestionIdentificationVisitor identificationVisitor = new QuestionIdentificationVisitor();
+	currentMatching.accept(identificationVisitor);
 	currentMatching.initResponsesPossible();
 	CorrectResponse newResponse = null;
 
@@ -25,8 +27,16 @@ public class SurveyFiller extends SurveyUtility {
 
 	    int choiceIndex;
 	    boolean cont = false;
+	    
+	    String prompt;
+	    
+	    if (identificationVisitor.isRanking()) {
+		prompt = "Please select choice number " + (j + 1) + " : ";
+	    } else {
+		prompt = "Please select left choice number " + (j + 1) + " : ";
+	    }
 
-	    String userChoice = this.promptForString("Please select choice number " + (j + 1) + " : ");
+	    String userChoice = this.promptForString(prompt);
 
 	    while (!currentMatching.isValidChoice(userChoice) || !cont) {
 		if (!currentMatching.isValidChoice(userChoice)) {
